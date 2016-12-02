@@ -32,6 +32,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IQAppBackgroundJobs", "IQAppBackgroundJobs\IQAppBackgroundJobs.csproj", "{91108009-E909-4FB0-8754-86A29E608917}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AD37B19-6440-42C2-BE75-B6C75F775EE7}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CloudKhanPublish|Any CPU = CloudKhanPublish|Any CPU
