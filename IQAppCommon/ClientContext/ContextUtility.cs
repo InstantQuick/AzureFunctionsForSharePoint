@@ -45,8 +45,8 @@ namespace IQAppCommon
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"Unable to get client context for {cacheKey}|{ex.ToString()}");
-                throw (ex);
+                var detailedException = new Exception($"Unable to get client context for cId={clientId} cacheKey={cacheKey}", ex);
+                throw (detailedException);
             }
         }
 
@@ -67,8 +67,8 @@ namespace IQAppCommon
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError($"Unable to get client context for {cacheKey}|{ex.ToString()}");
-                throw (ex);
+                var detailedException = new Exception($"Unable to get client context for cId={clientId} cacheKey={cacheKey}", ex);
+                throw (detailedException);
             }
         }
 
