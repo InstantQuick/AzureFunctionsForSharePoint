@@ -74,6 +74,19 @@ namespace EventDispatch
 
                 var ctx = ConnectToSPWeb(accessToken);
 
+                var securityTokens = new SecurityTokens()
+                {
+                    ClientId = ClientId,
+                    AccessToken = accessToken.AccessToken,
+                    AccessTokenExpires = accessToken.ExpiresOn,
+                    AppWebUrl = SPWebUrl,
+                    Realm = spContextToken.Realm,
+                    RefreshToken = spContextToken.RefreshToken
+                };
+
+                Log($"Storing tokens for {ClientId}/{encodedCacheKey}");
+                StoreSecurityTokens(securityTokens, encodedCacheKey, args.StorageAccount, args.StorageAccountKey);
+
                 var eventMessage = new QueuedSharePointProcessEvent()
                 {
                     SharePointRemoteEventAdapter = _eventInfo,
@@ -108,19 +121,6 @@ namespace EventDispatch
                     }
                 }
                 SendQueueMessage(eventMessage);
-
-                var securityTokens = new SecurityTokens()
-                {
-                    ClientId = ClientId,
-                    AccessToken = accessToken.AccessToken,
-                    AccessTokenExpires = accessToken.ExpiresOn,
-                    AppWebUrl = SPWebUrl,
-                    Realm = spContextToken.Realm,
-                    RefreshToken = spContextToken.RefreshToken
-                };
-
-                Log($"Storing tokens for {ClientId}/{encodedCacheKey}");
-                StoreSecurityTokens(securityTokens, encodedCacheKey, args.StorageAccount, args.StorageAccountKey);
             }
             catch (Exception ex)
             {
