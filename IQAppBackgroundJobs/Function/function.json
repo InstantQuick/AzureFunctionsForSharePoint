@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "receivedMessage",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "mytasksyncevents",
+      "connection": "ckresources",
+      "accessRights": "Manage"
+    }
+  ],
+  "disabled": false
+}
