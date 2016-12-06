@@ -271,16 +271,14 @@ namespace AppLaunch
                 return clientContext.Web.AppInstanceId.ToString();
             }
 
-            var productIdFromRequest = _queryParams != null && _queryParams.ContainsKey("ProductId")
-                ? _queryParams["ProductId"]
-                : null;
-            if (string.IsNullOrEmpty(productIdFromRequest))
+            var productId = _clientConfiguration.ProductId;
+            if (string.IsNullOrEmpty(productId))
             {
                 return null;
             }
 
             //Otherwise fetch it from the host web using the productId from the client catalog
-            var instances = clientContext.Web.GetAppInstancesByProductId(Guid.Parse(productIdFromRequest));
+            var instances = clientContext.Web.GetAppInstancesByProductId(Guid.Parse(productId));
             clientContext.Load(instances);
             clientContext.ExecuteQueryRetry();
 
