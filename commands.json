@@ -1,0 +1,10 @@
+{
+  "commands": {
+    "deploy": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -File deploy.ps1"
+    }
+  },
+  "-vs-binding": { "AfterBuild": [ "deploy" ] }
+}
