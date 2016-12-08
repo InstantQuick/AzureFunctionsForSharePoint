@@ -23,7 +23,11 @@ $functionNames | % {
     
 	#Only do files modified in the last n minutes. YMMV on the best time
 	$functionFiles = ls $functionName/Function/*.* | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
-    New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName" -Context $storage -ErrorAction SilentlyContinue
+
+	#If you want to copy all function files instead of recently modified, comment out the previous line and uncomment the following line
+    # $functionFiles = ls $functionName/Function/*.*
+	
+	New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName" -Context $storage -ErrorAction SilentlyContinue
     New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName/bin" -Context $storage -ErrorAction SilentlyContinue
     $functionFiles | % { 
         $destination = $baseFileUrl + "/" + $functionName + "/" + $_.Name
@@ -34,6 +38,10 @@ $functionNames | % {
 	
 	#Only do files modified in the last n minutes. YMMV on the best time
     $binFiles = ls $binFolder -Recurse -File | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+
+	#If you want to copy all function files instead of recently modified, comment out the previous line and uncomment the following line
+	# $binFiles = ls $binFolder -Recurse -File
+
     $lastFolder = ""
     $binFiles | % {
         $destination = $baseFileUrl + "/" + $functionName + "/bin/" + $_.FullName.Substring($binFolder.Length+1).Replace("\","/")
