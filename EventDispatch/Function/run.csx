@@ -11,13 +11,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     var func = new EventDispatchHandler(req);
     func.FunctionNotify += (sender, args) => Log(log, args.Message);
     
-    var appLauncherFunctionArgs = new EventDispatchFunctionArgs()
+    var eventDispatchFunctionArgs = new EventDispatchFunctionArgs()
     {
         StorageAccount = ConfigurationManager.AppSettings["ConfigurationStorageAccount"],
         StorageAccountKey = ConfigurationManager.AppSettings["ConfigurationStorageAccountKey"]
     };
 
-    return func.Execute(appLauncherFunctionArgs);
+    return func.Execute(eventDispatchFunctionArgs);
 }
 
 public static void Log(TraceWriter log, string message)
