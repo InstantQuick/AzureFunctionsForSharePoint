@@ -2,9 +2,9 @@
 
 # Note - You might have to Alt-Tab to get to the login window if using interactive login
  
-$subscriptionId = "[YOUR_SUBSCRIPTION_ID]"
-$storageCnn = "[YOUR_CONNECTION_STRING]"
-$resourceGroupName = "[YOUR_RESOURCEGROUP_NAME]"
+$subscriptionId = "fabc737c-5d6a-4089-9c49-e1f0c463068f"
+$storageCnn = "DefaultEndpointsProtocol=https;AccountName=iqappfunctions;AccountKey=mDLmEU+G9bLgXNcFdXAcqTo/ggnwzPKXRBX54LBOoZlNVIg3t5dfrIt7hXyWcGXW++ss8GbGlIm5VSfuyG9udg==;"
+$resourceGroupName = "IQAppFunctions"
 
 $storage = New-AzureStorageContext -ConnectionString $storageCnn
 
@@ -22,10 +22,10 @@ $functionNames | % {
     $functionName = $_
     
 	#Only do files modified in the last n minutes. YMMV on the best time
-	$functionFiles = ls $functionName/Function/*.* | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+	#$functionFiles = ls $functionName/Function/*.* | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
 
 	#If you want to copy all function files instead of recently modified, comment out the previous line and uncomment the following line
-    # $functionFiles = ls $functionName/Function/*.*
+    $functionFiles = ls $functionName/Function/*.*
 	
 	New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName" -Context $storage -ErrorAction SilentlyContinue
     New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName/bin" -Context $storage -ErrorAction SilentlyContinue
@@ -37,10 +37,10 @@ $functionNames | % {
     $binFolder = "$currentFolder/$functionName/bin/debug"
 	
 	#Only do files modified in the last n minutes. YMMV on the best time
-    $binFiles = ls $binFolder -Recurse -File | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+    #$binFiles = ls $binFolder -Recurse -File | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
 
 	#If you want to copy all function files instead of recently modified, comment out the previous line and uncomment the following line
-	# $binFiles = ls $binFolder -Recurse -File
+	$binFiles = ls $binFolder -Recurse -File
 
     $lastFolder = ""
     $binFiles | % {

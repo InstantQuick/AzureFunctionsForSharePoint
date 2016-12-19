@@ -1,4 +1,4 @@
-#r "FunctionsCore.dll"
+#r "AzureFunctionsForSharePoint.Common.dll"
 #r "IQAppBackgroundJobs.dll"
 #r "Microsoft.ServiceBus.dll"
 using System;

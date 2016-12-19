@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Script.Serialization;
-using System.Xml.Serialization;
-using ClientConfiguration;
-using FunctionsCore;
-using IQAppCommon.Security;
+using AzureFunctionsForSharePoint.Core;
+using AzureFunctionsForSharePoint.Common;
+using AzureFunctionsForSharePoint.Core.Security;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
 using Microsoft.SharePoint.Client;
-using ProcessEvent;
-using ProcessOneWayEvent;
-using TokenStorage;
-using static ClientConfiguration.Configuration;
-using static TokenStorage.BlobStorage;
-using static FunctionsCore.EnqueueMessage;
-using static IQAppCommon.ContextUtility;
+using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
+using static AzureFunctionsForSharePoint.Core.SecurityTokens;
+using static AzureFunctionsForSharePoint.Core.EnqueueMessage;
+using static AzureFunctionsForSharePoint.Core.ContextUtility;
 
 namespace EventDispatch
 {
@@ -34,7 +29,7 @@ namespace EventDispatch
         private readonly string _requestAuthority;
         private readonly HttpResponseMessage _response;
         private readonly SharePointRemoteEventAdapter _eventInfo;
-        private Configuration _clientConfiguration;
+        private ClientConfiguration _clientClientConfiguration;
 
         public EventDispatchHandler(HttpRequestMessage request)
         {
@@ -48,7 +43,7 @@ namespace EventDispatch
                 _requestAuthority = request.RequestUri.Authority;
                 _response = request.CreateResponse();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log(ex.ToString());
                 throw;
@@ -62,15 +57,15 @@ namespace EventDispatch
                 _response.StatusCode = HttpStatusCode.OK;
                 if (_eventInfo.EventProperties.ContainsKey("UserLoginName") && _eventInfo.EventProperties["UserLoginName"].Contains(AppOnlyPrincipalId)) return _response;
 
-                _clientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
+                _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
                 var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
-                    _clientConfiguration.ClientSecret);
+                    _clientClientConfiguration.ClientSecret);
                 var encodedCacheKey = TokenHelper.Base64UrlEncode(spContextToken.CacheKey);
                 var spHostUri = new Uri(SPWebUrl);
 
                 var accessToken = TokenHelper.GetAccessToken(spContextToken, spHostUri.Authority,
-                   _clientConfiguration.ClientId,
-                   _clientConfiguration.ClientSecret);
+                   _clientClientConfiguration.ClientId,
+                   _clientClientConfiguration.ClientSecret);
 
                 var ctx = ConnectToSPWeb(accessToken);
 
@@ -90,7 +85,7 @@ namespace EventDispatch
                 var eventMessage = new QueuedSharePointProcessEvent()
                 {
                     SharePointRemoteEventAdapter = _eventInfo,
-                    ClientId = _clientConfiguration.ClientId,
+                    ClientId = _clientClientConfiguration.ClientId,
                     AppWebUrl = SPWebUrl,
                     UserAccessToken = accessToken.AccessToken,
                     AppAccessToken = GetAccessToken(ClientId, encodedCacheKey, true),
@@ -113,7 +108,7 @@ namespace EventDispatch
                             ctx.ExecuteQueryRetry();
                             _eventInfo.ItemBeforeProperties = item.FieldValuesAsText.FieldValues;
                         }
-                        catch 
+                        catch
                         {
                             //The query depends on timing and there are a number of things that can go wrong. 
                             //If the BeforeProperties can't be read, forward the event anyway with the info that is available
@@ -177,6 +172,7 @@ namespace EventDispatch
                         }
                         catch
                         {
+                            // ignored
                         }
                     }
                 }
@@ -186,19 +182,11 @@ namespace EventDispatch
 
         private ClientContext ConnectToSPWeb(OAuth2AccessTokenResponse accessToken)
         {
-            try
-            {
-                var ctx = TokenHelper.GetClientContext(SPWebUrl, accessToken.AccessToken);
-                ctx.Load(ctx.Web);
-                ctx.ExecuteQueryRetry();
-                Log($"Connected to {ctx.Web.Url}");
-                return ctx;
-            }
-            catch
-            {
-                //TODO: Error page
-                throw;
-            }
+            var ctx = TokenHelper.GetClientContext(SPWebUrl, accessToken.AccessToken);
+            ctx.Load(ctx.Web);
+            ctx.ExecuteQueryRetry();
+            Log($"Connected to {ctx.Web.Url}");
+            return ctx;
         }
     }
 }

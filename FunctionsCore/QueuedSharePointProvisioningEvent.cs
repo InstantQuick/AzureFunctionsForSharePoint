@@ -1,6 +1,6 @@
 ﻿using IQAppProvisioningBaseClasses.Provisioning;
 
-namespace FunctionsCore
+namespace AzureFunctionsForSharePoint.Common
 {
     public enum ProvisioningAction
     {

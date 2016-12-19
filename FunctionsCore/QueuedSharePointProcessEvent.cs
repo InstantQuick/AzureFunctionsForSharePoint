@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace FunctionsCore
+﻿namespace AzureFunctionsForSharePoint.Common
 {
     public class QueuedSharePointProcessEvent : QueuedSharePointEvent
     {

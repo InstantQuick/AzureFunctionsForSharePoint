@@ -1,4 +1,4 @@
-﻿namespace FunctionsCore
+﻿namespace AzureFunctionsForSharePoint.Common
 {
     public class FunctionBase
     {

@@ -4,11 +4,18 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Web.Script.Serialization;
 
-namespace TokenStorage
+namespace AzureFunctionsForSharePoint.Core
 {
-    public class BlobStorage
+    public class SecurityTokens
     {
         private static readonly string SecurityTokensBlobName = "tokens.json";
+
+        public string RefreshToken;
+        public string AccessToken;
+        public DateTime AccessTokenExpires;
+        public string AppWebUrl;
+        public string Realm;
+        public string ClientId;
 
         public static SecurityTokens GetSecurityTokens(string cacheKey, string clientId)
         {

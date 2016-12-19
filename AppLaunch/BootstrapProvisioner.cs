@@ -3,15 +3,15 @@ using IQAppProvisioningBaseClasses.Events;
 using IQAppProvisioningBaseClasses.Provisioning;
 using Microsoft.SharePoint.Client;
 
-namespace BootstrapProvisioner
+namespace AppLaunch
 {
-    public class Provisioner : ProvisioningManagerBase
+    public class BootstrapProvisioner : ProvisioningManagerBase
     {
         protected bool IsHostWeb { get; set; }
         protected ClientContext Ctx { get; set; }
         protected Web Web { get; set; }
 
-        private void Provisioner_Notify(object sender, IQAppProvisioningBaseClasses.Events.ProvisioningNotificationEventArgs eventArgs)
+        private void Provisioner_Notify(object sender, ProvisioningNotificationEventArgs eventArgs)
         {
             OnNotify(eventArgs.Level, eventArgs.Detail);
         }

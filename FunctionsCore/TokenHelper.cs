@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.S2S.Tokens;
 using Microsoft.SharePoint.Client;
 using System.Web.Script.Serialization;
 
-namespace IQAppCommon.Security
+namespace AzureFunctionsForSharePoint.Core.Security
 {
     public class TokenHelper
     {
@@ -166,7 +166,10 @@ namespace IQAppCommon.Security
             }
             catch (WebException wex)
             {
-                using (StreamReader sr = new StreamReader(wex.Response.GetResponseStream()))
+                if (wex.Response == null) throw;
+                var stream = wex.Response.GetResponseStream();
+                if (stream == null) throw;
+                using (StreamReader sr = new StreamReader(stream))
                 {
                     string responseText = sr.ReadToEnd();
                     throw new WebException(wex.Message + " - " + responseText, wex);
@@ -185,6 +188,8 @@ namespace IQAppCommon.Security
         /// <param name="targetPrincipalName">Name of the target principal to retrieve an access token for</param>
         /// <param name="targetHost">Url authority of the target principal</param>
         /// <param name="targetRealm">Realm to use for the access token's nameid and audience</param>
+        /// <param name="clientId">ACS client id</param>
+        /// <param name="clientSecret">Client secret</param>
         /// <returns>An access token with an audience of the target principal</returns>
         public static OAuth2AccessTokenResponse GetAccessToken(
             string refreshToken,
@@ -209,7 +214,10 @@ namespace IQAppCommon.Security
             }
             catch (WebException wex)
             {
-                using (StreamReader sr = new StreamReader(wex.Response.GetResponseStream()))
+                if (wex.Response == null) throw;
+                var stream = wex.Response.GetResponseStream();
+                if (stream == null) throw;
+                using (StreamReader sr = new StreamReader(stream))
                 {
                     string responseText = sr.ReadToEnd();
                     throw new WebException(wex.Message + " - " + responseText, wex);
@@ -255,7 +263,10 @@ namespace IQAppCommon.Security
             }
             catch (WebException wex)
             {
-                using (StreamReader sr = new StreamReader(wex.Response.GetResponseStream()))
+                if (wex.Response == null) throw;
+                var stream = wex.Response.GetResponseStream();
+                if (stream == null) throw;
+                using (StreamReader sr = new StreamReader(stream))
                 {
                     string responseText = sr.ReadToEnd();
                     throw new WebException(wex.Message + " - " + responseText, wex);
@@ -269,11 +280,11 @@ namespace IQAppCommon.Security
         {
             JsonMetadataDocument document = GetMetadataDocument(realm);
 
-            JsonEndpoint s2sEndpoint = document.endpoints.SingleOrDefault(e => e.protocol == S2SProtocol);
+            JsonEndpoint s2SEndpoint = document.endpoints.SingleOrDefault(e => e.protocol == S2SProtocol);
 
-            if (null != s2sEndpoint)
+            if (null != s2SEndpoint)
             {
-                return s2sEndpoint.location;
+                return s2SEndpoint.location;
             }
             else
             {
@@ -346,7 +357,7 @@ namespace IQAppCommon.Security
               .Replace("=", "");
         }
 
-        static readonly Encoding _textEncoding = Encoding.UTF8;
+        static readonly Encoding TextEncoding = Encoding.UTF8;
 
         static readonly char Base64PadCharacter = '=';
         static readonly char Base64Character62 = '+';
@@ -373,7 +384,7 @@ namespace IQAppCommon.Security
 
         public static string Base64Decode(string arg)
         {
-            return _textEncoding.GetString(DecodeBytes(arg));
+            return TextEncoding.GetString(DecodeBytes(arg));
         }
     }
 

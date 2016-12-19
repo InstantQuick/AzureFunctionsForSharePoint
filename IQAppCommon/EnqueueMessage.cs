@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
+using AzureFunctionsForSharePoint.Common;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
-using static ClientConfiguration.Configuration;
+using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
 
-namespace FunctionsCore
+namespace AzureFunctionsForSharePoint.Core
 {
     public class EnqueueMessage
     {

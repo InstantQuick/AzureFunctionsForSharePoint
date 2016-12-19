@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
-using FunctionsCore;
+using AzureFunctionsForSharePoint.Common;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SharePoint.Client;
-using static IQAppCommon.Security.TokenHelper;
+using static AzureFunctionsForSharePoint.Core.Security.TokenHelper;
 
 namespace IQAppBackgroundJobs
 {
@@ -30,13 +30,13 @@ namespace IQAppBackgroundJobs
             {
                 switch (receivedMessage.ContentType)
                 {
-                    case "FunctionsCore.QueuedAppLaunchEvent":
+                    case "AzureFunctionsForSharePoint.Common.QueuedAppLaunchEvent":
                         Log(receivedMessage.ContentType);
                         break;
-                    case "FunctionsCore.QueuedSharePointProvisioningEvent":
+                    case "AzureFunctionsForSharePoint.Common.QueuedSharePointProvisioningEvent":
                         Log(receivedMessage.ContentType);
                         break;
-                    case "FunctionsCore.QueuedSharePointProcessEvent":
+                    case "AzureFunctionsForSharePoint.Common.QueuedSharePointProcessEvent":
                         Log(receivedMessage.ContentType);
                         var actualEvent = (new JavaScriptSerializer()).Deserialize<QueuedSharePointProcessEvent>(eventJSON);
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D13499EE-8FB4-4C31-ACCB-4162E54091E9}</ProjectGuid>
+    <ProjectGuid>{0734F136-8A6E-4CC6-8851-F4974828A07A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BootstrapProvisioner</RootNamespace>
-    <AssemblyName>BootstrapProvisioner</AssemblyName>
+    <RootNamespace>AzureFunctionsForSharePoint.Common</RootNamespace>
+    <AssemblyName>AzureFunctionsForSharePoint.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -42,6 +42,11 @@
       <HintPath>..\packages\InstantQuick.SharePoint.Provisioning.1.0.6192.24783\lib\net452\IQAppProvisioningBaseClasses.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IdentityModel\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SharePoint.Client, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SharePointOnline.CSOM.16.1.5903.1200\lib\net45\Microsoft.SharePoint.Client.dll</HintPath>
       <Private>True</Private>
@@ -60,12 +65,29 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionBase.cs" />
+    <Compile Include="LoggingNotificationDelegate.cs" />
+    <Compile Include="ProcessEventSOAPEnvelope.cs" />
+    <Compile Include="ProcessOneWayEventSOAPEnvelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueuedAppLaunchEvent.cs" />
+    <Compile Include="QueuedFunctionEvent.cs" />
+    <Compile Include="QueuedSharePointEvent.cs" />
+    <Compile Include="QueuedSharePointProcessEvent.cs" />
+    <Compile Include="QueuedSharePointProvisioningEvent.cs" />
+    <Compile Include="SharePointRemoteEventAdapter.cs" />
+    <Compile Include="TokenHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

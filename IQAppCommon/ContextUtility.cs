@@ -1,13 +1,11 @@
 ﻿using System;
-using ClientConfiguration;
-using IQAppCommon.Security;
+using AzureFunctionsForSharePoint.Core.Security;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
 using Microsoft.SharePoint.Client;
-using TokenStorage;
-using static ClientConfiguration.Configuration;
-using static TokenStorage.BlobStorage;
+using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
+using static AzureFunctionsForSharePoint.Core.SecurityTokens;
 
-namespace IQAppCommon
+namespace AzureFunctionsForSharePoint.Core
 {
     public class ContextUtility
     {
@@ -72,7 +70,7 @@ namespace IQAppCommon
             }
         }
 
-        private static OAuth2AccessTokenResponse GetUserAccessToken(string cacheKey, SecurityTokens tokens, Uri hostUri, Configuration clientConfig)
+        private static OAuth2AccessTokenResponse GetUserAccessToken(string cacheKey, SecurityTokens tokens, Uri hostUri, ClientConfiguration clientConfig)
         {
             var userAccessToken = TokenHelper.GetAccessToken(tokens.RefreshToken, targetPrincipal, hostUri.Authority,
                 tokens.Realm, tokens.ClientId, clientConfig.ClientSecret);
@@ -95,7 +93,7 @@ namespace IQAppCommon
                 ctx.Load(ctx.Web, w => w.ServerRelativeUrl);
                 ctx.ExecuteQueryRetry();
             }
-            catch (ServerUnauthorizedAccessException ex)
+            catch (ServerUnauthorizedAccessException)
             {
                 return false;
             }

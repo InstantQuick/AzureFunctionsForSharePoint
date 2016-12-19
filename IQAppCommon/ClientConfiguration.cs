@@ -5,9 +5,9 @@ using IQAppProvisioningBaseClasses.Provisioning;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace ClientConfiguration
+namespace AzureFunctionsForSharePoint.Core
 {
-    public class Configuration
+    public class ClientConfiguration
     {
         private static readonly string ConfigBlobName = "config.json";
 
@@ -31,12 +31,12 @@ namespace ClientConfiguration
             return _storageAccountKey;
         }
 
-        public static Configuration GetConfiguration(string clientId)
+        public static ClientConfiguration GetConfiguration(string clientId)
         {
             return GetConfiguration(clientId, ConfigurationManager.AppSettings["ConfigurationStorageAccount"],
                 ConfigurationManager.AppSettings["ConfigurationStorageAccountKey"]);
         }
-        public static Configuration GetConfiguration(string clientId, string storageAccount, string storageAccountKey)
+        public static ClientConfiguration GetConfiguration(string clientId, string storageAccount, string storageAccountKey)
         {
             var containerName = clientId.ToLowerInvariant();
 
@@ -46,7 +46,7 @@ namespace ClientConfiguration
             if (string.IsNullOrEmpty(configJson)) return null;
             try
             {
-                var configuration = (new JavaScriptSerializer()).Deserialize<Configuration>(configJson);
+                var configuration = (new JavaScriptSerializer()).Deserialize<ClientConfiguration>(configJson);
                 configuration._storageAccount = storageAccount;
                 configuration._storageAccountKey = storageAccountKey;
                 return configuration;
@@ -62,7 +62,7 @@ namespace ClientConfiguration
             return AppManifestBase.GetManifestFromAzureStorage(storageAccount, storageAccountKey, clientId, "bootstrapmanifest.json");
         }
 
-        public static void SetConfiguration(Configuration config, string storageAccount, string storageKey)
+        public static void SetConfiguration(ClientConfiguration config, string storageAccount, string storageKey)
         {
             var containerName = config.ClientId.ToLowerInvariant();
             var container = GetContainer(storageAccount, storageKey, containerName, true);

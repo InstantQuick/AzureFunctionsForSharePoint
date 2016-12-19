@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ProcessEvent;
 using ProcessOneWayEvent;
 using IQAppProvisioningBaseClasses;
 using System.Xml.Linq;
 
-namespace FunctionsCore
+namespace AzureFunctionsForSharePoint.Common
 {
     public class SharePointRemoteEventAdapter
     {
@@ -269,22 +266,16 @@ namespace FunctionsCore
         private static void SetListItemBeforeAndAfterProperties(Dictionary<string, string> properties, string propertiesXml)
         {
             if (propertiesXml == string.Empty) return;
-            try
+
+            var doc = XDocument.Parse(propertiesXml);
+            var items = doc.Descendants("item");
+            foreach (var xmlItem in items)
             {
-                var doc = XDocument.Parse(propertiesXml);
-                var items = doc.Descendants("item");
-                foreach (var xmlItem in items)
+                var newKey = xmlItem.Descendants("Key").FirstOrDefault()?.Value;
+                if (newKey != null)
                 {
-                    var newKey = xmlItem.Descendants("Key").FirstOrDefault()?.Value;
-                    if (newKey != null)
-                    {
-                        properties[newKey] = xmlItem.Descendants("Value").FirstOrDefault()?.Value;
-                    }
+                    properties[newKey] = xmlItem.Descendants("Value").FirstOrDefault()?.Value;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw;
             }
         }
         private static string CleanXml(string xml)

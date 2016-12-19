@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using ClientConfiguration;
-using FunctionsCore;
-using IQAppCommon.Security;
+using AzureFunctionsForSharePoint.Core;
+using AzureFunctionsForSharePoint.Common;
+using AzureFunctionsForSharePoint.Core.Security;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
-using TokenStorage;
-using static ClientConfiguration.Configuration;
-using static TokenStorage.BlobStorage;
+using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
+using static AzureFunctionsForSharePoint.Core.SecurityTokens;
 
 namespace GetAccessToken
 {
@@ -24,21 +22,13 @@ namespace GetAccessToken
     {
         private static string targetPrincipal = "00000003-0000-0ff1-ce00-000000000000";
 
-        private readonly NameValueCollection _formParams;
         private readonly Dictionary<string, string> _queryParams;
-        private readonly string _requestAuthority;
         private readonly HttpResponseMessage _response;
 
         public GetAccessTokenHandler(HttpRequestMessage request)
         {
-            if (request.Content.IsFormData())
-            {
-                _formParams = request.Content.ReadAsFormDataAsync().Result;
-            }
-
             _queryParams = request.GetQueryNameValuePairs()?
                 .ToDictionary(kv => kv.Key, kv => kv.Value, StringComparer.OrdinalIgnoreCase);
-            _requestAuthority = request.RequestUri.Authority;
             _response = request.CreateResponse();
         }
 
@@ -48,7 +38,7 @@ namespace GetAccessToken
             {
                 var cacheKey = _queryParams["cacheKey"];
                 var clientId = _queryParams["clientId"];
-                
+
                 var clientConfig = GetConfiguration(clientId);
                 var tokens = GetSecurityTokens(cacheKey, clientId);
 
@@ -68,7 +58,7 @@ namespace GetAccessToken
             return _response;
         }
 
-        private static OAuth2AccessTokenResponse GetUserAccessToken(string cacheKey, SecurityTokens tokens, Uri hostUri, Configuration clientConfig)
+        private static OAuth2AccessTokenResponse GetUserAccessToken(string cacheKey, SecurityTokens tokens, Uri hostUri, ClientConfiguration clientConfig)
         {
             var userAccessToken = TokenHelper.GetAccessToken(tokens.RefreshToken, targetPrincipal, hostUri.Authority,
                 tokens.Realm, tokens.ClientId, clientConfig.ClientSecret);

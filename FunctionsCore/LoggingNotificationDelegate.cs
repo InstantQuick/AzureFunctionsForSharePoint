@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FunctionsCore
+namespace AzureFunctionsForSharePoint.Common
 {
     public delegate void FunctionNotificationEventHandler(
         object sender, FunctionNotificationEventArgs eventArgs);

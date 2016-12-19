@@ -1,5 +1,5 @@
 #r "GetAccessToken.dll"
-#r "FunctionsCore.dll"
+#r "AzureFunctionsForSharePoint.Common.dll"
 using System.Net;
 using System.Configuration;
 using System.Net.Http.Formatting;

@@ -9,17 +9,15 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Web.Script.Serialization;
-using BootstrapProvisioner;
-using ClientConfiguration;
-using FunctionsCore;
-using IQAppCommon.Security;
+using AzureFunctionsForSharePoint.Core;
+using AzureFunctionsForSharePoint.Common;
+using AzureFunctionsForSharePoint.Core.Security;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
 using Microsoft.SharePoint.Client;
-using TokenStorage;
-using static ClientConfiguration.Configuration;
-using static TokenStorage.BlobStorage;
-using static FunctionsCore.EnqueueMessage;
-using static IQAppCommon.ContextUtility;
+using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
+using static AzureFunctionsForSharePoint.Core.SecurityTokens;
+using static AzureFunctionsForSharePoint.Core.EnqueueMessage;
+using static AzureFunctionsForSharePoint.Core.ContextUtility;
 
 namespace AppLaunch
 {
@@ -35,7 +33,7 @@ namespace AppLaunch
         private readonly Dictionary<string, string> _queryParams;
         private readonly string _requestAuthority;
         private readonly HttpResponseMessage _response;
-        private Configuration _clientConfiguration;
+        private ClientConfiguration _clientClientConfiguration;
 
         public AppLaunchHandler(HttpRequestMessage request)
         {
@@ -54,14 +52,14 @@ namespace AppLaunch
         {
             try
             {
-                _clientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
+                _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
                 var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
-                    _clientConfiguration.ClientSecret);
+                    _clientClientConfiguration.ClientSecret);
                 var spHostUri = new Uri(SPWebUrl);
 
                 var accessToken = TokenHelper.GetAccessToken(spContextToken, spHostUri.Authority,
-                    _clientConfiguration.ClientId,
-                    _clientConfiguration.ClientSecret);
+                    _clientClientConfiguration.ClientId,
+                    _clientClientConfiguration.ClientSecret);
 
 
                 var ctx = ConnectToSPWeb(accessToken);
@@ -227,10 +225,10 @@ namespace AppLaunch
         private void InstallBaseManifest(ClientContext clientContext)
         {
             Log("Applying base manifest");
-            var manifest = GetBaseManifest(ClientId, _clientConfiguration.GetStorageAccount(),
-                _clientConfiguration.GetStorageAccountKey());
+            var manifest = GetBaseManifest(ClientId, _clientClientConfiguration.GetStorageAccount(),
+                _clientClientConfiguration.GetStorageAccountKey());
 
-            var provisioner = new Provisioner();
+            var provisioner = new BootstrapProvisioner();
             provisioner.Notify += (sender, eventArgs) => { Log(eventArgs.Detail); };
 
             provisioner.Provision(clientContext, clientContext.Web, manifest);
@@ -271,7 +269,7 @@ namespace AppLaunch
                 return clientContext.Web.AppInstanceId.ToString();
             }
 
-            var productId = _clientConfiguration.ProductId;
+            var productId = _clientClientConfiguration.ProductId;
             if (string.IsNullOrEmpty(productId))
             {
                 return null;
@@ -306,7 +304,9 @@ namespace AppLaunch
         private string GetFile(string key, Assembly assembly)
         {
             if (assembly == null) return null;
-            using (var streamReader = new StreamReader(assembly.GetManifestResourceStream(key)))
+            var stream = assembly.GetManifestResourceStream(key);
+            if (stream == null) return null;
+            using (var streamReader = new StreamReader(stream))
             {
                 return Encoding.UTF8.GetString(ReadFully(streamReader.BaseStream));
             }
