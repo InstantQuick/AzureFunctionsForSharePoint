@@ -78,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureFunctionArgs.cs" />
     <Compile Include="ClientConfiguration.cs" />
     <Compile Include="ContextUtility.cs" />
     <Compile Include="EnqueueMessage.cs" />

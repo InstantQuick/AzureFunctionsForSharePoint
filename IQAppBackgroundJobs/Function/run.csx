@@ -1,10 +1,12 @@
 #r "AzureFunctionsForSharePoint.Common.dll"
 #r "IQAppBackgroundJobs.dll"
 #r "Microsoft.ServiceBus.dll"
+#r "AzureFunctionsForSharePoint.Common.dll"
 using System;
 using System.Configuration;
 using Microsoft.ServiceBus.Messaging;
 using IQAppBackgroundJobs;
+using AzureFunctionsForSharePoint.Core;
 
 public static void Run(BrokeredMessage receivedMessage, TraceWriter log)
 {

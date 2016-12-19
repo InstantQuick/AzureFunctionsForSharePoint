@@ -10,7 +10,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     Log(log, $"C# HTTP trigger function processed a request! RequestUri={req.RequestUri}");
     var func = new EventDispatchHandler(req);
     func.FunctionNotify += (sender, args) => Log(log, args.Message);
-    
+
     var eventDispatchFunctionArgs = new EventDispatchFunctionArgs()
     {
         StorageAccount = ConfigurationManager.AppSettings["ConfigurationStorageAccount"],

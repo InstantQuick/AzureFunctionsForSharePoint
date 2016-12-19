@@ -78,6 +78,10 @@
       <Project>{0734f136-8a6e-4cc6-8851-f4974828a07a}</Project>
       <Name>AzureFunctionsForSharePoint.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AzureFunctionsForSharePoint.Core\AzureFunctionsForSharePoint.Core.csproj">
+      <Project>{9D07A65B-ADFB-44E4-89A1-AA0FF93979C4}</Project>
+      <Name>AzureFunctionsForSharePoint.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

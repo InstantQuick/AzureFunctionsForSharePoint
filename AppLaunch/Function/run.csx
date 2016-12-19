@@ -10,14 +10,14 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     Log(log, $"C# HTTP trigger function processed a request! RequestUri={req.RequestUri}");
     var func = new AppLaunchHandler(req);
     func.FunctionNotify += (sender, args) => Log(log, args.Message);
-    
-    var functionArgs = new AzureFunctionArgs()
+
+    var appLauncherFunctionArgs = new AppLauncherFunctionArgs()
     {
         StorageAccount = ConfigurationManager.AppSettings["ConfigurationStorageAccount"],
         StorageAccountKey = ConfigurationManager.AppSettings["ConfigurationStorageAccountKey"]
     };
 
-    return func.Execute(functionArgs);
+    return func.Execute(appLauncherFunctionArgs);
 }
 
 public static void Log(TraceWriter log, string message)

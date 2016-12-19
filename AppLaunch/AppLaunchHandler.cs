@@ -52,7 +52,7 @@ namespace AppLaunch
             _response = request.CreateResponse();
         }
 
-        public HttpResponseMessage Execute(AzureFunctionArgs args)
+        public HttpResponseMessage Execute(AppLauncherFunctionArgs args)
         {
             try
             {
