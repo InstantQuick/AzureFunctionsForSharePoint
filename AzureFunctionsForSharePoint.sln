@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLaunch", "AppLaunch\AppL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDispatch", "EventDispatch\EventDispatch.csproj", "{C596755D-34CD-4873-8597-681C08686D29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsForSharePoint.Common", "FunctionsCore\AzureFunctionsForSharePoint.Common.csproj", "{0734F136-8A6E-4CC6-8851-F4974828A07A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsForSharePoint.Common", "AzureFunctionsForSharePoint.Common\AzureFunctionsForSharePoint.Common.csproj", "{0734F136-8A6E-4CC6-8851-F4974828A07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsForSharePoint.Core", "IQAppCommon\AzureFunctionsForSharePoint.Core.csproj", "{9D07A65B-ADFB-44E4-89A1-AA0FF93979C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsForSharePoint.Core", "AzureFunctionsForSharePoint.Core\AzureFunctionsForSharePoint.Core.csproj", "{9D07A65B-ADFB-44E4-89A1-AA0FF93979C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityModel", "IdentityModel", "{D85B9100-D8C1-4525-A323-350FE611E286}"
 	ProjectSection(SolutionItems) = preProject
