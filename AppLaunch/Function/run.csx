@@ -11,13 +11,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     var func = new AppLaunchHandler(req);
     func.FunctionNotify += (sender, args) => Log(log, args.Message);
     
-    var appLauncherFunctionArgs = new AppLauncherFunctionArgs()
+    var functionArgs = new AzureFunctionArgs()
     {
         StorageAccount = ConfigurationManager.AppSettings["ConfigurationStorageAccount"],
         StorageAccountKey = ConfigurationManager.AppSettings["ConfigurationStorageAccountKey"]
     };
 
-    return func.Execute(appLauncherFunctionArgs);
+    return func.Execute(functionArgs);
 }
 
 public static void Log(TraceWriter log, string message)

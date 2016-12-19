@@ -21,6 +21,10 @@ using static AzureFunctionsForSharePoint.Core.ContextUtility;
 
 namespace AppLaunch
 {
+    /// <summary>
+    /// The function is written to avoid dependencies on the hosting environment.
+    /// Pass a class with the applicable configuration values instead.
+    /// </summary>
     public class AppLauncherFunctionArgs
     {
         public string StorageAccount { get; set; }
@@ -48,7 +52,7 @@ namespace AppLaunch
             _response = request.CreateResponse();
         }
 
-        public HttpResponseMessage Execute(AppLauncherFunctionArgs args)
+        public HttpResponseMessage Execute(AzureFunctionArgs args)
         {
             try
             {
