@@ -211,6 +211,9 @@ UpgradeLog*.htm
 *.bim.layout
 *.bim_*.settings
 
+# Deploy Powershell
+**/deploy.ps1
+
 # Microsoft Fakes
 FakesAssemblies/
 
