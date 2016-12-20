@@ -5,11 +5,14 @@ using Microsoft.SharePoint.Client;
 
 namespace AppLaunch
 {
+    /// <summary>
+    /// Provisions a given app manifest to a SharePoint site
+    /// </summary>
     public class BootstrapProvisioner : ProvisioningManagerBase
     {
-        protected bool IsHostWeb { get; set; }
-        protected ClientContext Ctx { get; set; }
-        protected Web Web { get; set; }
+        private bool _isHostWeb { get; set; }
+        private ClientContext _ctx { get; set; }
+        private Web _web { get; set; }
 
         private void Provisioner_Notify(object sender, ProvisioningNotificationEventArgs eventArgs)
         {
@@ -26,15 +29,21 @@ namespace AppLaunch
             return web.AppInstanceId != default(Guid);
         }
 
+        /// <summary>
+        /// Provisions a given app manifest to a given client context and web
+        /// </summary>
+        /// <param name="ctx">The SharePoint ClientContext</param>
+        /// <param name="web">The target web</param>
+        /// <param name="manifest">The app manifest</param>
         public void Provision(ClientContext ctx, Web web, AppManifestBase manifest)
         {
-            IsHostWeb = !WebHasAppinstanceId(web);
-            Ctx = ctx;
-            Web = web;
+            _isHostWeb = !WebHasAppinstanceId(web);
+            _ctx = ctx;
+            _web = web;
 
             if (!ContextLoaded()) LoadContext();
 
-            if (IsHostWeb)
+            if (_isHostWeb)
             {
                 AddFeatures(manifest);
                 OnNotify(ProvisioningNotificationLevels.Verbose, "Added features");
@@ -78,58 +87,52 @@ namespace AppLaunch
 
             var lfm = new LookAndFeelManager();
             lfm.Notify += Provisioner_Notify;
-            lfm.ProvisionLookAndFeel(manifest, Ctx, Web);
+            lfm.ProvisionLookAndFeel(manifest, _ctx, _web);
         }
-
         private void ApplyDocumentTemplates(AppManifestBase manifest)
         {
             if (manifest.ListCreators != null && manifest.ListCreators.Count > 0)
             {
                 foreach (var listCreator in manifest.ListCreators.Values)
                 {
-                    listCreator.UpdateDocumentTemplate(Ctx);
+                    listCreator.UpdateDocumentTemplate(_ctx);
                 }
             }
         }
-
         private void AttachEvents(AppManifestBase manifest)
         {
             if (manifest.RemoteEventRegistrationCreators == null || manifest.RemoteEventRegistrationCreators.Count == 0)
                 return;
             var manager = new RemoteEventRegistrationManager();
             manager.Notify += Provisioner_Notify;
-            manager.CreateEventHandlers(Ctx, Web, manifest.RemoteEventRegistrationCreators, manifest.RemoteHost);
+            manager.CreateEventHandlers(_ctx, _web, manifest.RemoteEventRegistrationCreators, manifest.RemoteHost);
         }
-
         private void AddFeatures(AppManifestBase manifest)
         {
             var featureManager = new FeatureManager { FeaturesToAdd = manifest.AddFeatures };
             featureManager.Notify += Provisioner_Notify;
-            featureManager.ConfigureFeatures(Ctx, Web);
+            featureManager.ConfigureFeatures(_ctx, _web);
         }
-
         private void RemoveFeatures(AppManifestBase manifest)
         {
             var featureManager = new FeatureManager { FeaturesToRemove = manifest.RemoveFeatures };
             featureManager.Notify += Provisioner_Notify;
-            featureManager.ConfigureFeatures(Ctx, Web);
+            featureManager.ConfigureFeatures(_ctx, _web);
         }
-
         private void ProvisionGroups(AppManifestBase manifest)
         {
             if (manifest.GroupCreators != null && manifest.GroupCreators.Count > 0)
             {
                 var groupManager = new GroupManager { GroupCreators = manifest.GroupCreators };
                 groupManager.Notify += Provisioner_Notify;
-                groupManager.ProvisionGroups(Ctx, Web);
+                groupManager.ProvisionGroups(_ctx, _web);
             }
         }
-
         private void ProvisionRoleDefinitions(AppManifestBase manifest)
         {
             if (manifest.RoleDefinitions != null && manifest.RoleDefinitions.Count > 0)
             {
-                var roleDefinitionManager = new RoleDefinitionManager(Ctx, Web)
+                var roleDefinitionManager = new RoleDefinitionManager(_ctx, _web)
                 {
                     RoleDefinitions = manifest.RoleDefinitions
                 };
@@ -137,12 +140,11 @@ namespace AppLaunch
                 roleDefinitionManager.Provision();
             }
         }
-
         private void ProvisionNavigation(AppManifestBase manifest)
         {
             if (manifest.Navigation != null)
             {
-                var navigationManager = new NavigationManager(Ctx, Web)
+                var navigationManager = new NavigationManager(_ctx, _web)
                 {
                     ClearLeftMenu = manifest.Navigation.ClearLeftMenu,
                     ClearTopMenu = manifest.Navigation.ClearTopMenu,
@@ -152,7 +154,7 @@ namespace AppLaunch
 
                 navigationManager.Notify += Provisioner_Notify;
                 //App webs don't have oob menus. Create menus on host web
-                if (IsHostWeb)
+                if (_isHostWeb)
                 {
                     navigationManager.Provision();
                 }
@@ -163,34 +165,30 @@ namespace AppLaunch
                 }
             }
         }
-
         private void ProvisionCustomActions(AppManifestBase manifest)
         {
             if (manifest.CustomActionCreators != null && manifest.CustomActionCreators.Count > 0)
             {
-                var actionMan = new CustomActionManager(Ctx, Web) { CustomActions = manifest.CustomActionCreators };
+                var actionMan = new CustomActionManager(_ctx, _web) { CustomActions = manifest.CustomActionCreators };
                 actionMan.Notify += Provisioner_Notify;
                 actionMan.CreateAll();
             }
         }
-
         private void ProvisionFiles(AppManifestBase appManifest)
         {
             var fileManager = new FileManager();
             fileManager.Notify += Provisioner_Notify;
-            fileManager.ProvisionAll(Ctx, Web, appManifest);
+            fileManager.ProvisionAll(_ctx, _web, appManifest);
         }
-
         private void ProvisionLists(AppManifestBase manifest)
         {
             if (manifest.ListCreators != null && manifest.ListCreators.Count > 0)
             {
-                var lm = new ListInstanceManager(Ctx, Web, IsHostWeb) { Creators = manifest.ListCreators };
+                var lm = new ListInstanceManager(_ctx, _web, _isHostWeb) { Creators = manifest.ListCreators };
                 lm.Notify += Provisioner_Notify;
                 lm.CreateAll();
             }
         }
-
         private void ProvisionContentTypes(AppManifestBase manifest)
         {
             if (manifest.ContentTypeCreators != null && manifest.ContentTypeCreators.Count > 0)
@@ -198,10 +196,9 @@ namespace AppLaunch
                 var cm = new ContentTypeManager { Creators = manifest.ContentTypeCreators };
                 cm.Notify += Provisioner_Notify;
                 //ContentTypes should always be provisioned into the root or app web
-                cm.CreateAll(Ctx);
+                cm.CreateAll(_ctx);
             }
         }
-
         private void ProvisionFields(AppManifestBase manifest)
         {
             if (manifest.Fields != null && manifest.Fields.Count > 0)
@@ -209,10 +206,9 @@ namespace AppLaunch
                 var fm = new FieldManager { FieldDefinitions = manifest.Fields };
                 fm.Notify += Provisioner_Notify;
                 //Fields should always be provisioned into the root or app web
-                fm.CreateAll(Ctx);
+                fm.CreateAll(_ctx);
             }
         }
-
         private void ProvisionClassicWorkflows(AppManifestBase manifest)
         {
             if (manifest.ClassicWorkflowCreators == null || manifest.ClassicWorkflowCreators.Count == 0) return;
@@ -220,37 +216,35 @@ namespace AppLaunch
             var cm = new ClassicWorkflowManager { Creators = manifest.ClassicWorkflowCreators };
             cm.Notify += Provisioner_Notify;
             //App identities can't call the web service to register the workflow
-            if (Ctx.AuthenticationMode != ClientAuthenticationMode.Anonymous)
+            if (_ctx.AuthenticationMode != ClientAuthenticationMode.Anonymous)
             {
                 //Normal call with credentials
-                cm.CreateAll(Ctx);
+                cm.CreateAll(_ctx);
             }
             else
             //So create a self destructing custom action to register via the browser
             {
                 var userCustomActionTitle = "AppWorkflowAssociationCustomAction" + manifest.ManifestName;
                 //manifest.CustomActionCreators = manifest.CustomActionCreators != null ? manifest.CustomActionCreators : new Dictionary<string, CustomActionCreatorBase>();
-                manifest.CustomActionCreators[userCustomActionTitle] = cm.CreateAppWorkflowAssociationCustomAction(Ctx,
-                    Web, manifest.ClassicWorkflowCreators, userCustomActionTitle);
+                manifest.CustomActionCreators[userCustomActionTitle] = cm.CreateAppWorkflowAssociationCustomAction(_ctx,
+                    _web, manifest.ClassicWorkflowCreators, userCustomActionTitle);
             }
         }
-
         private bool ContextLoaded()
         {
-            return !(!Ctx.Site.IsPropertyAvailable("ServerRelativeUrl") ||
-                     !Ctx.Site.IsPropertyAvailable("RootWeb") ||
-                     !Ctx.Site.RootWeb.IsPropertyAvailable("ServerRelativeUrl") ||
-                     !Ctx.Web.IsPropertyAvailable("ServerRelativeUrl"));
+            return !(!_ctx.Site.IsPropertyAvailable("ServerRelativeUrl") ||
+                     !_ctx.Site.IsPropertyAvailable("RootWeb") ||
+                     !_ctx.Site.RootWeb.IsPropertyAvailable("ServerRelativeUrl") ||
+                     !_ctx.Web.IsPropertyAvailable("ServerRelativeUrl"));
         }
-
         private void LoadContext()
         {
-            Ctx.Load(Ctx.Site);
-            Ctx.Load(Ctx.Site.RootWeb);
-            Ctx.Load(Ctx.Site.RootWeb.AllProperties);
-            Ctx.Load(Ctx.Web);
-            Ctx.Load(Ctx.Web.AllProperties);
-            Ctx.ExecuteQueryRetry();
+            _ctx.Load(_ctx.Site);
+            _ctx.Load(_ctx.Site.RootWeb);
+            _ctx.Load(_ctx.Site.RootWeb.AllProperties);
+            _ctx.Load(_ctx.Web);
+            _ctx.Load(_ctx.Web.AllProperties);
+            _ctx.ExecuteQueryRetry();
         }
     }
 }

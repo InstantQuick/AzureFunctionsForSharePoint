@@ -22,11 +22,21 @@ using static AzureFunctionsForSharePoint.Core.ContextUtility;
 namespace AppLaunch
 {
     /// <summary>
-    /// The function is written to avoid dependencies on the hosting environment.
-    /// Pass a class with the applicable configuration values instead.
+    /// Function specific configuration elements should be added as properties here to extend the <see cref="AzureFunctionArgs" /> class.
     /// </summary>
     public class AppLauncherFunctionArgs : AzureFunctionArgs { }
 
+    /// <summary>
+    /// This function is called when SharePoint POSTs an ACS token for a SharePoint add-in.
+    /// The SharePoint add-in's manifest XML must specify the function URL as the value of the <see href="//msdn.microsoft.com/en-us/library/office/jj583318.aspx">StartPage element</see>. 
+    /// A valid client configuration is required.
+    /// 
+    /// Once connected to a SharePoint site, the function checks the add-in's install status and provisions as indicated by the bootstrapmanifest.json located in the client's configuration storage container. If provisioning occurs a message is sent to the service bus queue specified in the client configuration to notify the client for additional processing as desired.
+    /// Finally,  a message is sent to the service bus queue specified in the client configuration to notify the client of the add-in's launch.
+    /// </summary>
+    /// <remarks>
+    /// This class inherits <see cref="FunctionBase"/> for its simple logging notification event. 
+    /// </remarks>
     public class AppLaunchHandler : FunctionBase
     {
         private readonly NameValueCollection _formParams;
@@ -35,6 +45,10 @@ namespace AppLaunch
         private readonly HttpResponseMessage _response;
         private ClientConfiguration _clientClientConfiguration;
 
+        /// <summary>
+        /// Initializes the handler for a given HttpRequestMessage received from the function trigger
+        /// </summary>
+        /// <param name="request">The current request</param>
         public AppLaunchHandler(HttpRequestMessage request)
         {
             if (request.Content.IsFormData())
@@ -48,6 +62,11 @@ namespace AppLaunch
             _response = request.CreateResponse();
         }
 
+        /// <summary>
+        /// Performs the app launch flow for the current request
+        /// </summary>
+        /// <param name="args">An <see cref="AppLauncherFunctionArgs"/> instance specifying the location of the client configuration in Azure storage.</param>
+        /// <returns>If launch succeeds the response is a 302 redirect back to the SharePoint site's home page.</returns>
         public HttpResponseMessage Execute(AppLauncherFunctionArgs args)
         {
             try
@@ -114,7 +133,7 @@ namespace AppLaunch
             return ctx;
         }
 
-        public string ContextToken
+        private string ContextToken
         {
             get
             {
@@ -130,7 +149,7 @@ namespace AppLaunch
             }
         }
 
-        public string SPWebUrl
+        private string SPWebUrl
         {
             get
             {
@@ -144,7 +163,7 @@ namespace AppLaunch
             }
         }
 
-        public string SPHostUrl
+        private string SPHostUrl
         {
             get
             {
@@ -155,7 +174,7 @@ namespace AppLaunch
             }
         }
 
-        public string ClientId
+        private string ClientId
         {
             get
             {
@@ -258,7 +277,6 @@ namespace AppLaunch
                 throw;
             }
         }
-
 
         private string GetAppInstanceId(ClientContext clientContext)
         {
