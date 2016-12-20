@@ -38,10 +38,6 @@
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="IQAppProvisioningBaseClasses, Version=1.0.6192.24783, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\InstantQuick.SharePoint.Provisioning.1.0.6192.24783\lib\net452\IQAppProvisioningBaseClasses.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\IdentityModel\Microsoft.IdentityModel.dll</HintPath>
@@ -71,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureFunctionArgs.cs" />
     <Compile Include="FunctionBase.cs" />
     <Compile Include="LoggingNotificationDelegate.cs" />
     <Compile Include="ProcessEventSOAPEnvelope.cs" />
@@ -82,6 +79,7 @@
     <Compile Include="QueuedSharePointProcessEvent.cs" />
     <Compile Include="QueuedSharePointProvisioningEvent.cs" />
     <Compile Include="SharePointRemoteEventAdapter.cs" />
+    <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TokenHelper.cs" />
   </ItemGroup>
   <ItemGroup>

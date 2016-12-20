@@ -13,11 +13,7 @@ using static AzureFunctionsForSharePoint.Core.SecurityTokens;
 
 namespace GetAccessToken
 {
-    public class GetAccessTokenArgs
-    {
-        public string StorageAccount { get; set; }
-        public string StorageAccountKey { get; set; }
-    }
+    public class GetAccessTokenArgs : AzureFunctionArgs { }
     public class GetAccessTokenHandler : FunctionBase
     {
         private static string targetPrincipal = "00000003-0000-0ff1-ce00-000000000000";
@@ -44,11 +40,10 @@ namespace GetAccessToken
 
                 Uri hostUri = new Uri(tokens.AppWebUrl);
 
-                //Always try to get access as the user. If the user has no access, this should
-                //never return an app only context
                 var userAccessToken = GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig);
+                var appOnlyAccessToken = ContextUtility.GetAppOnlyAccessToken(clientId, cacheKey);
                 _response.StatusCode = HttpStatusCode.OK;
-                _response.Content = new StringContent($"{{\"token\":\"{userAccessToken.AccessToken}\"}}");
+                _response.Content = new StringContent($"{{'token':'{userAccessToken.AccessToken}', 'appOnlyAccessToken':'{appOnlyAccessToken}'}}");
                 _response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             }
             catch

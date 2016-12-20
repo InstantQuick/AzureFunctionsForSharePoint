@@ -8,11 +8,7 @@ using static AzureFunctionsForSharePoint.Core.Security.TokenHelper;
 
 namespace IQAppBackgroundJobs
 {
-    public class BackgroundJobHandlerArgs
-    {
-        public string StorageAccount { get; set; }
-        public string StorageAccountKey { get; set; }
-    }
+    public class BackgroundJobHandlerArgs : AzureFunctionArgs { }
     public class BackgroundJobHandler : FunctionBase
     {
         public void Execute(BrokeredMessage receivedMessage, BackgroundJobHandlerArgs storageConfig)

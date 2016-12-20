@@ -25,11 +25,7 @@ namespace AppLaunch
     /// The function is written to avoid dependencies on the hosting environment.
     /// Pass a class with the applicable configuration values instead.
     /// </summary>
-    public class AppLauncherFunctionArgs
-    {
-        public string StorageAccount { get; set; }
-        public string StorageAccountKey { get; set; }
-    }
+    public class AppLauncherFunctionArgs : AzureFunctionArgs { }
 
     public class AppLaunchHandler : FunctionBase
     {
@@ -217,7 +213,7 @@ namespace AppLaunch
                 {
                     ClientId = ClientId,
                     AppWebUrl = SPWebUrl,
-                    AppAccessToken = GetAccessToken(ClientId, cacheKey, true),
+                    AppAccessToken = GetAppOnlyAccessToken(ClientId, cacheKey),
                     UserAccessToken = GetAccessToken(ClientId, cacheKey),
                     RetryCount = 5,
                     Action = ProvisioningAction.Install,

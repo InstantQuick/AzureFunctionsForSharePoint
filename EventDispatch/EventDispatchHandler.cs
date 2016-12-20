@@ -16,11 +16,7 @@ using static AzureFunctionsForSharePoint.Core.ContextUtility;
 
 namespace EventDispatch
 {
-    public class EventDispatchFunctionArgs
-    {
-        public string StorageAccount { get; set; }
-        public string StorageAccountKey { get; set; }
-    }
+    public class EventDispatchFunctionArgs : AzureFunctionArgs { }
 
     public class EventDispatchHandler : FunctionBase
     {

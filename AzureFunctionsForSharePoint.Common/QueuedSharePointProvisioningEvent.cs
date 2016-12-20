@@ -1,5 +1,4 @@
-﻿using IQAppProvisioningBaseClasses.Provisioning;
-
+﻿
 namespace AzureFunctionsForSharePoint.Common
 {
     public enum ProvisioningAction
@@ -30,6 +29,5 @@ namespace AzureFunctionsForSharePoint.Common
     {
         public ProvisioningAction Action { get; set; }
         public ProvisioningSteps ProvisioningStep { get; set; }
-        public AppManifestBase AppManifest { get; set; }
     }
 }

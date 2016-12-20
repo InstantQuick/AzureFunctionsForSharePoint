@@ -56,9 +56,7 @@ namespace AzureFunctionsForSharePoint.Core
                 var tokens = GetSecurityTokens(cacheKey, clientId);
                 if (tokens == null) return null;
                 Uri hostUri = new Uri(tokens.AppWebUrl);
-
-                //Always try to get access as the user. If the user has no access, this should
-
+                
                 if (!appOnly) return GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig).AccessToken;
                 return GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, tokens.Realm,
                                     tokens.ClientId, clientConfig.ClientSecret);
@@ -84,6 +82,11 @@ namespace AzureFunctionsForSharePoint.Core
         private static string GetAppOnlyAccessToken(string targetPrincipalName, string authority, string realm, string clientId, string clientSecret)
         {
             return TokenHelper.GetAppOnlyAccessToken(targetPrincipalName, authority, realm, clientId, clientSecret).AccessToken;
+        }
+
+        public static string GetAppOnlyAccessToken(string clientId, string cacheKey)
+        {
+            return GetAccessToken(clientId, cacheKey, true, false);
         }
 
         private static bool ContextHasAccess(ClientContext ctx)

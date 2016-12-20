@@ -5,7 +5,6 @@ using System.Linq;
 using System.Xml.Serialization;
 using ProcessEvent;
 using ProcessOneWayEvent;
-using IQAppProvisioningBaseClasses;
 using System.Xml.Linq;
 
 namespace AzureFunctionsForSharePoint.Common
