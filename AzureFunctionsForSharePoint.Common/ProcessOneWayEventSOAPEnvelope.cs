@@ -10,7 +10,7 @@
 
 using System;
 
-namespace ProcessOneWayEvent
+namespace AzureFunctionsForSharePoint.Common.ProcessOneWayEvent
 {
 
     // 

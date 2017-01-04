@@ -6,13 +6,19 @@ using Microsoft.SharePoint.Client;
 namespace AppLaunch
 {
     /// <summary>
-    /// Provisions a given app manifest to a SharePoint site
+    /// Provisions a given app manifest to a SharePoint site.
     /// </summary>
+    /// <remarks>
+    /// This operation blocks the launch flow until it completes. This means that when a user launches the app, they will see a blank browser page for the duration of the provisioning process.
+    /// Although it is possible provision an entire app if the app is small, the intended use of this class is for the bare minimum provisioning of the app, such as temporary home page.
+    /// 
+    /// <see cref="AppLaunchHandler"/> queues a <see cref="AzureFunctionsForSharePoint.Common.QueuedSharePointProvisioningEvent"/> message your client can handle for long running provisioning jobs.
+    /// </remarks>
     public class BootstrapProvisioner : ProvisioningManagerBase
     {
-        private bool _isHostWeb { get; set; }
-        private ClientContext _ctx { get; set; }
-        private Web _web { get; set; }
+        private bool _isHostWeb;
+        private ClientContext _ctx;
+        private Web _web;
 
         private void Provisioner_Notify(object sender, ProvisioningNotificationEventArgs eventArgs)
         {
@@ -32,13 +38,13 @@ namespace AppLaunch
         /// <summary>
         /// Provisions a given app manifest to a given client context and web
         /// </summary>
-        /// <param name="ctx">The SharePoint ClientContext</param>
+        /// <param name="clientContext">The SharePoint ClientContext</param>
         /// <param name="web">The target web</param>
         /// <param name="manifest">The app manifest</param>
-        public void Provision(ClientContext ctx, Web web, AppManifestBase manifest)
+        public void Provision(ClientContext clientContext, Web web, AppManifestBase manifest)
         {
             _isHostWeb = !WebHasAppinstanceId(web);
-            _ctx = ctx;
+            _ctx = clientContext;
             _web = web;
 
             if (!ContextLoaded()) LoadContext();

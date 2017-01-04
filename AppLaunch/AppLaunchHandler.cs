@@ -28,7 +28,7 @@ namespace AppLaunch
 
     /// <summary>
     /// This function is called when SharePoint POSTs an ACS token for a SharePoint add-in.
-    /// The SharePoint add-in's manifest XML must specify the function URL as the value of the <see href="//msdn.microsoft.com/en-us/library/office/jj583318.aspx">StartPage element</see>. 
+    /// The SharePoint add-in's manifest XML must specify the function URL as the value of the <see href="https://msdn.microsoft.com/en-us/library/office/jj583318.aspx">StartPage element</see>. 
     /// A valid client configuration is required.
     /// 
     /// Once connected to a SharePoint site, the function checks the add-in's install status and provisions as indicated by the bootstrapmanifest.json located in the client's configuration storage container. If provisioning occurs a message is sent to the service bus queue specified in the client configuration to notify the client for additional processing as desired.

@@ -1,0 +1,1 @@
+SharePoint addin app manifest

@@ -4,7 +4,11 @@
       "fileName": "powershell.exe",
       "workingDirectory": ".",
       "arguments": "-ExecutionPolicy Bypass -File deploy.ps1"
+    },
+    "build_documentation": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File APIDocs\\build_documentation.ps1"
     }
-  },
-  "-vs-binding": { "AfterBuild": [ "deploy" ] }
+  }
 }

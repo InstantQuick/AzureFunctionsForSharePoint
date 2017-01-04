@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using ProcessEvent;
-using ProcessOneWayEvent;
+using AzureFunctionsForSharePoint.Common.ProcessEvent;
+using AzureFunctionsForSharePoint.Common.ProcessOneWayEvent;
 using System.Xml.Linq;
 
 namespace AzureFunctionsForSharePoint.Common

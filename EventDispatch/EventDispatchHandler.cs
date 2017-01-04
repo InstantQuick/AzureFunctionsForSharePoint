@@ -16,8 +16,19 @@ using static AzureFunctionsForSharePoint.Core.ContextUtility;
 
 namespace EventDispatch
 {
+    /// <summary>
+    /// Function specific configuration elements should be added as properties here to extend the <see cref="AzureFunctionArgs" /> class.
+    /// </summary>
     public class EventDispatchFunctionArgs : AzureFunctionArgs { }
 
+    /// <summary>
+    /// This function receive a remote event from SharePoint as a WCF SOAP message and parses it using <see cref="SharePointRemoteEventAdapter"/>.
+    /// Based on the event type, the received information may be augmented by reading additional information from SharePoint.
+    ///  and sends the resulting <see cref="QueuedSharePointProcessEvent"/> to the client's service bus queue.  
+    /// </summary>
+    /// <remarks>
+    /// This class inherits <see cref="FunctionBase"/> for its simple logging notification event. 
+    /// </remarks>
     public class EventDispatchHandler : FunctionBase
     {
         private const string AppOnlyPrincipalId = "00000003-0000-0ff1-ce00-000000000000";
@@ -27,6 +38,10 @@ namespace EventDispatch
         private readonly SharePointRemoteEventAdapter _eventInfo;
         private ClientConfiguration _clientClientConfiguration;
 
+        /// <summary>
+        /// Initializes the handler for a given HttpRequestMessage received from the function trigger and parses the incoming WCF message
+        /// </summary>
+        /// <param name="request">The current request</param>
         public EventDispatchHandler(HttpRequestMessage request)
         {
             try
@@ -46,6 +61,11 @@ namespace EventDispatch
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public HttpResponseMessage Execute(EventDispatchFunctionArgs args)
         {
             try

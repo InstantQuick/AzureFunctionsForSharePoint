@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E6A576C8-2B4B-420E-AC07-323B3E0690E4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APIDocs</RootNamespace>
+    <AssemblyName>APIDocs</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="custom_template\common.js" />
+    <Content Include="custom_template\conceptual.extension.js" />
+    <Content Include="custom_template\conceptual.html.primary.js" />
+    <Content Include="custom_template\DocFx5050Logo.png" />
+    <Content Include="custom_template\favicon.ico" />
+    <Content Include="custom_template\fonts\fontawesome-webfont.svg" />
+    <Content Include="custom_template\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="custom_template\gulpfile.js" />
+    <Content Include="custom_template\ManagedReference.common.js" />
+    <Content Include="custom_template\ManagedReference.extension.js" />
+    <Content Include="custom_template\ManagedReference.html.primary.js" />
+    <Content Include="custom_template\RestApi.common.js" />
+    <Content Include="custom_template\RestApi.extension.js" />
+    <Content Include="custom_template\RestApi.html.primary.js" />
+    <Content Include="custom_template\styles\docfx.css" />
+    <Content Include="custom_template\styles\docfx.js" />
+    <Content Include="custom_template\styles\docfx.vendor.css" />
+    <Content Include="custom_template\styles\docfx.vendor.js" />
+    <Content Include="custom_template\styles\font-awesome.css" />
+    <Content Include="custom_template\styles\font-awesome.min.css" />
+    <Content Include="custom_template\styles\lunr.min.js" />
+    <Content Include="custom_template\styles\main.css" />
+    <Content Include="custom_template\styles\main.js" />
+    <Content Include="custom_template\styles\search-worker.js" />
+    <Content Include="custom_template\toc.html.js" />
+    <Content Include="images\AppLaunchFunction2.png" />
+    <Content Include="images\AppLaunchManifest.png" />
+    <Content Include="_site\api\AppLaunch.AppLauncherFunctionArgs.html" />
+    <Content Include="_site\api\AppLaunch.AppLaunchHandler.html" />
+    <Content Include="_site\api\AppLaunch.BootstrapProvisioner.html" />
+    <Content Include="_site\api\AppLaunch.html" />
+    <Content Include="_site\api\AppLaunch.NamespaceDoc.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.AzureFunctionArgs.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.FunctionBase.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.FunctionNotificationEventArgs.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.FunctionNotificationEventHandler.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.Envelope.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.EnvelopeBody.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.KeyValueOfstringanyType.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesAppEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesInstanceEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventPropertiesAfterProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventPropertiesBeforeProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesListEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesSecurityEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesWebEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.Envelope.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.EnvelopeBody.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.KeyValueOfstringanyType.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesAppEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesEntityInstanceEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesAfterProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesBeforeProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesListEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesSecurityEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesWebEventProperties.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProvisioningAction.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.ProvisioningSteps.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.QueuedAppLaunchEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.QueuedFunctionEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.QueuedSharePointEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.QueuedSharePointProcessEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.QueuedSharePointProvisioningEvent.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.SharePointRemoteEventAdapter.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Common.StringExtensionMethods.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.ClientConfiguration.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.ContextUtility.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.EnqueueMessage.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.Security.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.Security.MultipleSymmetricKeySecurityToken.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.Security.SharePointContextToken.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.Security.TokenHelper.html" />
+    <Content Include="_site\api\AzureFunctionsForSharePoint.Core.SecurityTokens.html" />
+    <Content Include="_site\api\EventDispatch.EventDispatchFunctionArgs.html" />
+    <Content Include="_site\api\EventDispatch.EventDispatchHandler.html" />
+    <Content Include="_site\api\EventDispatch.html" />
+    <Content Include="_site\api\GetAccessToken.GetAccessTokenArgs.html" />
+    <Content Include="_site\api\GetAccessToken.GetAccessTokenHandler.html" />
+    <Content Include="_site\api\GetAccessToken.html" />
+    <Content Include="_site\api\index.html" />
+    <Content Include="_site\api\IQAppBackgroundJobs.BackgroundJobHandler.html" />
+    <Content Include="_site\api\IQAppBackgroundJobs.BackgroundJobHandlerArgs.html" />
+    <Content Include="_site\api\IQAppBackgroundJobs.html" />
+    <Content Include="_site\api\ProcessEvent.Envelope.html" />
+    <Content Include="_site\api\ProcessEvent.EnvelopeBody.html" />
+    <Content Include="_site\api\ProcessEvent.html" />
+    <Content Include="_site\api\ProcessEvent.KeyValueOfstringanyType.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEvent.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesAppEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesInstanceEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesItemEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesItemEventPropertiesAfterProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesItemEventPropertiesBeforeProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesListEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesSecurityEventProperties.html" />
+    <Content Include="_site\api\ProcessEvent.ProcessEventPropertiesWebEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.Envelope.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.EnvelopeBody.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.KeyValueOfstringanyType.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEvent.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesAppEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesEntityInstanceEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesAfterProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesBeforeProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesListEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesSecurityEventProperties.html" />
+    <Content Include="_site\api\ProcessOneWayEvent.ProcessOneWayEventPropertiesWebEventProperties.html" />
+    <Content Include="_site\api\toc.html" />
+    <Content Include="_site\articles\AppLaunch.html" />
+    <Content Include="_site\articles\EventDispatch.html" />
+    <Content Include="_site\articles\GetAccessToken.html" />
+    <Content Include="_site\articles\intro.html" />
+    <Content Include="_site\articles\SPAppManifest.html" />
+    <Content Include="_site\articles\toc.html" />
+    <Content Include="_site\DocFx5050Logo.png" />
+    <Content Include="_site\favicon.ico" />
+    <Content Include="_site\fonts\fontawesome-webfont.svg" />
+    <Content Include="_site\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="_site\images\AppLaunchFunction2.png" />
+    <Content Include="_site\images\AppLaunchManifest.png" />
+    <Content Include="_site\images\DocFx5050Logo.png" />
+    <Content Include="_site\index.html" />
+    <Content Include="_site\logo.svg" />
+    <Content Include="_site\styles\docfx.css" />
+    <Content Include="_site\styles\docfx.js" />
+    <Content Include="_site\styles\docfx.vendor.css" />
+    <Content Include="_site\styles\docfx.vendor.js" />
+    <Content Include="_site\styles\font-awesome.css" />
+    <Content Include="_site\styles\font-awesome.min.css" />
+    <Content Include="_site\styles\lunr.min.js" />
+    <Content Include="_site\styles\main.css" />
+    <Content Include="_site\styles\main.js" />
+    <Content Include="_site\styles\search-worker.js" />
+    <Content Include="_site\toc.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="api\.gitignore" />
+    <None Include="api\.manifest" />
+    <None Include="api\AppLaunch.AppLauncherFunctionArgs.yml" />
+    <None Include="api\AppLaunch.AppLaunchHandler.yml" />
+    <None Include="api\AppLaunch.BootstrapProvisioner.yml" />
+    <None Include="api\AppLaunch.NamespaceDoc.yml" />
+    <None Include="api\AppLaunch.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.AzureFunctionArgs.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.FunctionBase.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.FunctionNotificationEventArgs.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.FunctionNotificationEventHandler.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.Envelope.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.EnvelopeBody.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.KeyValueOfstringanyType.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesAppEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesInstanceEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventPropertiesAfterProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesItemEventPropertiesBeforeProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesListEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesSecurityEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.ProcessEventPropertiesWebEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.Envelope.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.EnvelopeBody.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.KeyValueOfstringanyType.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesAppEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesEntityInstanceEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesAfterProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesBeforeProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesListEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesSecurityEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.ProcessOneWayEventPropertiesWebEventProperties.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProcessOneWayEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProvisioningAction.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.ProvisioningSteps.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.QueuedAppLaunchEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.QueuedFunctionEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.QueuedSharePointEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.QueuedSharePointProcessEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.QueuedSharePointProvisioningEvent.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.SharePointRemoteEventAdapter.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.StringExtensionMethods.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Common.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.ClientConfiguration.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.ContextUtility.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.EnqueueMessage.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.Security.MultipleSymmetricKeySecurityToken.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.Security.SharePointContextToken.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.Security.TokenHelper.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.Security.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.SecurityTokens.yml" />
+    <None Include="api\AzureFunctionsForSharePoint.Core.yml" />
+    <None Include="api\EventDispatch.EventDispatchFunctionArgs.yml" />
+    <None Include="api\EventDispatch.EventDispatchHandler.yml" />
+    <None Include="api\EventDispatch.yml" />
+    <None Include="api\GetAccessToken.GetAccessTokenArgs.yml" />
+    <None Include="api\GetAccessToken.GetAccessTokenHandler.yml" />
+    <None Include="api\GetAccessToken.yml" />
+    <None Include="api\index.md" />
+    <None Include="api\IQAppBackgroundJobs.BackgroundJobHandler.yml" />
+    <None Include="api\IQAppBackgroundJobs.BackgroundJobHandlerArgs.yml" />
+    <None Include="api\IQAppBackgroundJobs.yml" />
+    <None Include="api\ProcessEvent.Envelope.yml" />
+    <None Include="api\ProcessEvent.EnvelopeBody.yml" />
+    <None Include="api\ProcessEvent.KeyValueOfstringanyType.yml" />
+    <None Include="api\ProcessEvent.ProcessEvent.yml" />
+    <None Include="api\ProcessEvent.ProcessEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesAppEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesInstanceEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesItemEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesItemEventPropertiesAfterProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesItemEventPropertiesBeforeProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesListEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesSecurityEventProperties.yml" />
+    <None Include="api\ProcessEvent.ProcessEventPropertiesWebEventProperties.yml" />
+    <None Include="api\ProcessEvent.yml" />
+    <None Include="api\ProcessOneWayEvent.Envelope.yml" />
+    <None Include="api\ProcessOneWayEvent.EnvelopeBody.yml" />
+    <None Include="api\ProcessOneWayEvent.KeyValueOfstringanyType.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEvent.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesAppEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesEntityInstanceEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesAfterProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesItemEventPropertiesBeforeProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesListEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesSecurityEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.ProcessOneWayEventPropertiesWebEventProperties.yml" />
+    <None Include="api\ProcessOneWayEvent.yml" />
+    <None Include="api\toc.yml" />
+    <None Include="articles\AppLaunch.md" />
+    <None Include="articles\EventDispatch.md" />
+    <None Include="articles\GetAccessToken.md" />
+    <None Include="articles\intro.md" />
+    <None Include="articles\SPAppManifest.md" />
+    <None Include="articles\toc.yml" />
+    <None Include="build_documentation.ps1" />
+    <None Include="custom_template\conceptual.html.primary.tmpl" />
+    <None Include="custom_template\fonts\fontawesome-webfont.eot" />
+    <None Include="custom_template\fonts\fontawesome-webfont.ttf" />
+    <None Include="custom_template\fonts\fontawesome-webfont.woff" />
+    <None Include="custom_template\fonts\fontawesome-webfont.woff2" />
+    <None Include="custom_template\fonts\FontAwesome.otf" />
+    <None Include="custom_template\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="custom_template\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="custom_template\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="custom_template\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="custom_template\ManagedReference.html.primary.tmpl" />
+    <None Include="custom_template\partials\affix.tmpl.partial" />
+    <None Include="custom_template\partials\breadcrumb.tmpl.partial" />
+    <None Include="custom_template\partials\class.header.tmpl.partial" />
+    <None Include="custom_template\partials\class.tmpl.partial" />
+    <None Include="custom_template\partials\classSubtitle.tmpl.partial" />
+    <None Include="custom_template\partials\enum.tmpl.partial" />
+    <None Include="custom_template\partials\footer.tmpl.partial" />
+    <None Include="custom_template\partials\head.tmpl.partial" />
+    <None Include="custom_template\partials\li.tmpl.partial" />
+    <None Include="custom_template\partials\logo.tmpl.partial" />
+    <None Include="custom_template\partials\namespace.tmpl.partial" />
+    <None Include="custom_template\partials\namespaceSubtitle.tmpl.partial" />
+    <None Include="custom_template\partials\navbar.tmpl.partial" />
+    <None Include="custom_template\partials\rest.child.tmpl.partial" />
+    <None Include="custom_template\partials\rest.tmpl.partial" />
+    <None Include="custom_template\partials\scripts.tmpl.partial" />
+    <None Include="custom_template\partials\searchResults.tmpl.partial" />
+    <None Include="custom_template\partials\title.tmpl.partial" />
+    <None Include="custom_template\partials\toc.tmpl.partial" />
+    <None Include="custom_template\RestApi.html.primary.tmpl" />
+    <None Include="custom_template\search-stopwords.json" />
+    <None Include="custom_template\toc.html.tmpl" />
+    <None Include="custom_template\token.json" />
+    <None Include="docfx.json" />
+    <None Include="index.md" />
+    <None Include="README.md" />
+    <None Include="toc.yml" />
+    <None Include="_site\fonts\fontawesome-webfont.eot" />
+    <None Include="_site\fonts\fontawesome-webfont.ttf" />
+    <None Include="_site\fonts\fontawesome-webfont.woff" />
+    <None Include="_site\fonts\fontawesome-webfont.woff2" />
+    <None Include="_site\fonts\FontAwesome.otf" />
+    <None Include="_site\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="_site\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="_site\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="_site\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="_site\index.json" />
+    <None Include="_site\manifest.json" />
+    <None Include="_site\search-stopwords.json" />
+    <None Include="_site\xrefmap.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="apidoc\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
