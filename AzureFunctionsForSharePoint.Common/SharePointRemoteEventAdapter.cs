@@ -6,26 +6,69 @@ using System.Xml.Serialization;
 using AzureFunctionsForSharePoint.Common.ProcessEvent;
 using AzureFunctionsForSharePoint.Common.ProcessOneWayEvent;
 using System.Xml.Linq;
+using Microsoft.SharePoint.Client.EventReceivers;
 
 namespace AzureFunctionsForSharePoint.Common
 {
+    /// <summary>
+    /// Represents a remote SharePoint event notification parsed to be easy to handle with additional context to augment event processing.
+    /// Sent by the EventDispatch function to a client's service bus queue in response to receipt of a remote event notification
+    /// </summary>
+    /// <seealso cref="SPRemoteEventProperties"/>
     public class SharePointRemoteEventAdapter
     {
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.CorrelationId"/>
+        /// </summary>
         public string CorrelationId { get; set; }
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.CultureLCID"/>
+        /// </summary>
         public string CultureLCID { get; set; }
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.ErrorCode"/>
+        /// </summary>
         public string ErrorCode { get; set; }
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.ErrorMessage"/>
+        /// </summary>
         public string ErrorMessage { get; set; }
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.EventType"/>
+        /// </summary>
         public string EventType { get; set; }
+        /// <summary>
+        /// Corresponds to <see cref="SPRemoteEventProperties.UICultureLCID"/>
+        /// </summary>
         public string UICultureLCID { get; set; }
+        /// <summary>
+        /// Name value pairs of the event data provided with the remote event. These vary by event types.
+        /// </summary>
         public Dictionary<string, string> EventProperties = new Dictionary<string, string>();
+        /// <summary>
+        /// If applicable and available, the properties of a list item before the event. Event dispatch attempts to augment this data when possible.
+        /// </summary>
         public Dictionary<string, string> ItemBeforeProperties = new Dictionary<string, string>();
+        /// <summary>
+        /// If applicable and available, the properties of a list item after the event
+        /// </summary>
         public Dictionary<string, string> ItemAfterProperties = new Dictionary<string, string>();
         private string _contextToken = string.Empty;
+
+        /// <summary>
+        /// Provides the context token from the event
+        /// </summary>
+        /// <returns></returns>
         public string GetContextToken()
         {
             return _contextToken;
         }
 
+        /// <summary>
+        /// Transforms the text of a remote event WCF SOAP message into a new SharePointRemoteEventAdapter
+        /// </summary>
+        /// <param name="soapBody">Message received from SharePoint</param>
+        /// <returns>A new SharePointRemoteEventAdapter instance from the SOAP message</returns>
         public static SharePointRemoteEventAdapter GetSharePointRemoteEventAdapter(string soapBody)
         {
             if (soapBody.Contains("ProcessOneWayEvent"))

@@ -13,7 +13,17 @@ using static AzureFunctionsForSharePoint.Core.SecurityTokens;
 
 namespace GetAccessToken
 {
+    /// <summary>
+    /// Function specific configuration elements should be added as properties here to extend the <see cref="AzureFunctionArgs" /> class.
+    /// </summary>
     public class GetAccessTokenArgs : AzureFunctionArgs { }
+
+    /// <summary>
+    /// Returns a JSON string containing userAccessToken and appOnlyAccessToken properties for a given clientId and cacheKey combo.
+    /// </summary>
+    /// <remarks>
+    /// This class inherits <see cref="FunctionBase"/> for its simple logging notification event. 
+    /// </remarks>
     public class GetAccessTokenHandler : FunctionBase
     {
         private static string targetPrincipal = "00000003-0000-0ff1-ce00-000000000000";
@@ -21,6 +31,10 @@ namespace GetAccessToken
         private readonly Dictionary<string, string> _queryParams;
         private readonly HttpResponseMessage _response;
 
+        /// <summary>
+        /// Initialize the function and populate the query params collection.
+        /// </summary>
+        /// <param name="request">The current request</param>
         public GetAccessTokenHandler(HttpRequestMessage request)
         {
             _queryParams = request.GetQueryNameValuePairs()?
@@ -28,6 +42,11 @@ namespace GetAccessToken
             _response = request.CreateResponse();
         }
 
+        /// <summary>
+        /// Returns application/json containing userAccessToken and appOnlyAccessToken properties for a valid clientId and cacheKey combo or a 404 for invalid input.
+        /// </summary>
+        /// <param name="args">An <see cref="GetAccessTokenArgs"/> instance specifying the location of the client configuration in Azure storage.</param>
+        /// <returns>JSON or 404</returns>
         public HttpResponseMessage Execute(GetAccessTokenArgs args)
         {
             try
@@ -43,7 +62,7 @@ namespace GetAccessToken
                 var userAccessToken = GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig);
                 var appOnlyAccessToken = ContextUtility.GetAppOnlyAccessToken(clientId, cacheKey);
                 _response.StatusCode = HttpStatusCode.OK;
-                _response.Content = new StringContent($"{{'token':'{userAccessToken.AccessToken}', 'appOnlyAccessToken':'{appOnlyAccessToken}'}}");
+                _response.Content = new StringContent($"{{'userAccessToken':'{userAccessToken.AccessToken}', 'appOnlyAccessToken':'{appOnlyAccessToken}'}}");
                 _response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             }
             catch

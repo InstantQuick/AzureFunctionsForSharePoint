@@ -1,0 +1,7 @@
+﻿apiRules:
+- exclude:
+   uidRegex: ^AzureFunctionsForSharePoint\.Common\.ProcessEvent$
+- exclude:
+   uidRegex: ^AzureFunctionsForSharePoint\.Common\.ProcessOneWayEvent$
+- exclude:
+   uidRegex: ^IQAppBackgroundJobs$

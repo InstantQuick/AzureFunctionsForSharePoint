@@ -1,7 +1,7 @@
 #r "AzureFunctionsForSharePoint.Common.dll"
 #r "IQAppBackgroundJobs.dll"
 #r "Microsoft.ServiceBus.dll"
-#r "AzureFunctionsForSharePoint.Common.dll"
+#r "AzureFunctionsForSharePoint.Core.dll"
 using System;
 using System.Configuration;
 using Microsoft.ServiceBus.Messaging;

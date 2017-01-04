@@ -322,6 +322,7 @@
     <None Include="custom_template\toc.html.tmpl" />
     <None Include="custom_template\token.json" />
     <None Include="docfx.json" />
+    <None Include="filterConfig.yml" />
     <None Include="index.md" />
     <None Include="README.md" />
     <None Include="toc.yml" />
@@ -341,6 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="apidoc\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

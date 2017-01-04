@@ -62,17 +62,24 @@ namespace EventDispatch
         }
 
         /// <summary>
+        /// Processes the received event and sends the result to the client's service bus queue.
         /// 
+        /// SharePoint's remote event notification lacks the current item state for ItemDeleting and ItemUpdating events.
+        /// For these event types, it attempts to fetch the current (unchanged) item and populate the ItemBeforeProperties. It is possible for the attempt to fail if the item is already deleted. If the attempt fails, the event is forwarded with the available information.
         /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// <param name="args">An <see cref="EventDispatchFunctionArgs"/> instance specifying the location of the client configuration in Azure storage.</param>
+        /// <remarks>The event is ignored if it is the result of an action taken by an app only identity</remarks>
+        /// <returns>HttpStatusCode.OK if all is well or 500.</returns>
         public HttpResponseMessage Execute(EventDispatchFunctionArgs args)
         {
             try
             {
                 _response.StatusCode = HttpStatusCode.OK;
+
+                //Ignore the event if it is the result of an action taken by an app only identity
                 if (_eventInfo.EventProperties.ContainsKey("UserLoginName") && _eventInfo.EventProperties["UserLoginName"].Contains(AppOnlyPrincipalId)) return _response;
 
+                //Connect to the SharePoint site and get access tokens
                 _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
                 var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
                     _clientClientConfiguration.ClientSecret);
@@ -98,6 +105,7 @@ namespace EventDispatch
                 Log($"Storing tokens for {ClientId}/{encodedCacheKey}");
                 StoreSecurityTokens(securityTokens, encodedCacheKey, args.StorageAccount, args.StorageAccountKey);
 
+                //Create the event message to send to the client's service bus queue
                 var eventMessage = new QueuedSharePointProcessEvent()
                 {
                     SharePointRemoteEventAdapter = _eventInfo,
@@ -107,7 +115,8 @@ namespace EventDispatch
                     AppAccessToken = GetAccessToken(ClientId, encodedCacheKey, true),
                 };
 
-
+                //SharePoint's remote event notification lacks the current item state for ItemDeleting and ItemUpdating events
+                //For these event types, attempt to fetch the current (unchanged) item and populate the ItemBeforeProperties
                 if (_eventInfo.EventType == "ItemDeleting" || _eventInfo.EventType == "ItemUpdating")
                 {
                     //SharePoint feature provisioning sometimes raises this event
@@ -131,6 +140,8 @@ namespace EventDispatch
                         }
                     }
                 }
+
+                //Send the event to the client's service bus queue
                 SendQueueMessage(eventMessage);
             }
             catch (Exception ex)
@@ -142,13 +153,13 @@ namespace EventDispatch
             return _response;
         }
 
-        public string ContextToken
+        private string ContextToken
         {
             get { return _eventInfo.GetContextToken(); }
         }
 
         private List<string> WebPropertyNames = new List<string>() { "AppWebFullUrl", "HostWebFullUrl", "WebUrl", "WebFullUrl", "FullUrl" };
-        public string SPWebUrl
+        private string SPWebUrl
         {
             get
             {
@@ -164,7 +175,7 @@ namespace EventDispatch
             }
         }
 
-        public string ClientId
+        private string ClientId
         {
             get
             {
@@ -178,7 +189,7 @@ namespace EventDispatch
                         var mainPart = contextTokenParts[1];
                         try
                         {
-                            var jwt = TokenHelper.Base64Decode(mainPart);
+                            var jwt = TokenHelper.Base64DecodeJwtToken(mainPart);
                             var deserializer = new JavaScriptSerializer();
                             var tokenProperties = deserializer.Deserialize<Dictionary<string, string>>(jwt);
                             if (tokenProperties.ContainsKey("aud"))

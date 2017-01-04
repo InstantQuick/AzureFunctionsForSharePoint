@@ -188,7 +188,7 @@ namespace AppLaunch
                         var mainPart = contextTokenParts[1];
                         try
                         {
-                            var jwt = TokenHelper.Base64Decode(mainPart);
+                            var jwt = TokenHelper.Base64DecodeJwtToken(mainPart);
                             var deserializer = new JavaScriptSerializer();
                             var tokenProperties = deserializer.Deserialize<Dictionary<string, string>>(jwt);
                             if (tokenProperties.ContainsKey("aud"))
@@ -244,7 +244,7 @@ namespace AppLaunch
         private void InstallBaseManifest(ClientContext clientContext)
         {
             Log("Applying base manifest");
-            var manifest = GetBaseManifest(ClientId, _clientClientConfiguration.GetStorageAccount(),
+            var manifest = GetBootstrapManifest(ClientId, _clientClientConfiguration.GetStorageAccount(),
                 _clientClientConfiguration.GetStorageAccountKey());
 
             var provisioner = new BootstrapProvisioner();

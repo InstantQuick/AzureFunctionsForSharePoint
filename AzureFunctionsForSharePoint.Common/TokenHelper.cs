@@ -16,6 +16,9 @@ using System.Web.Script.Serialization;
 
 namespace AzureFunctionsForSharePoint.Core.Security
 {
+    /// <summary>
+    /// Methods for working with auth tokens and creating authorized client contexts
+    /// </summary>
     public class TokenHelper
     {
         private const string AcsMetadataEndPointRelativeUrl = "metadata/json/1";
@@ -46,6 +49,14 @@ namespace AzureFunctionsForSharePoint.Core.Security
             return clientContext;
         }
 
+        /// <summary>
+        /// Reads and validates a contextTokenString sent from SharePoint as the result of app launch or a remote event
+        /// </summary>
+        /// <param name="contextTokenString">The string sent by SharePoint</param>
+        /// <param name="appHostName">The app host (host part of the site URL)</param>
+        /// <param name="clientId">A valid client id</param>
+        /// <param name="clientSecret">A valid client secret</param>
+        /// <returns></returns>
         public static SharePointContextToken ReadAndValidateContextToken(string contextTokenString, string appHostName, string clientId, string clientSecret)
         {
             JsonWebSecurityTokenHandler tokenHandler = CreateJsonWebSecurityTokenHandler(clientSecret);
@@ -276,7 +287,7 @@ namespace AzureFunctionsForSharePoint.Core.Security
             return oauth2Response;
         }
 
-        public static string GetStsUrl(string realm)
+        private static string GetStsUrl(string realm)
         {
             JsonMetadataDocument document = GetMetadataDocument(realm);
 
@@ -382,7 +393,7 @@ namespace AzureFunctionsForSharePoint.Core.Security
             return Convert.FromBase64String(s.ToString());
         }
 
-        public static string Base64Decode(string arg)
+        public static string Base64DecodeJwtToken(string arg)
         {
             return TextEncoding.GetString(DecodeBytes(arg));
         }

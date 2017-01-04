@@ -14,7 +14,8 @@
           "cwd": "../"
         }
       ],
-      "dest": "api"
+      "dest": "api",
+      "filter": "APIDocs/filterConfig.yml"
     }
   ],
   "build": {

@@ -7,10 +7,21 @@ using static AzureFunctionsForSharePoint.Core.SecurityTokens;
 
 namespace AzureFunctionsForSharePoint.Core
 {
+    /// <summary>
+    /// Methods for connecting to SharePoint
+    /// </summary>
     public class ContextUtility
     {
         private static string targetPrincipal = "00000003-0000-0ff1-ce00-000000000000";
 
+        /// <summary>
+        /// Gets a SharePoint <see cref="ClientContext"/> for a given client id and cache key combination
+        /// </summary>
+        /// <param name="clientId">The id of the client. This must match the client id from a SharePoint add-in manifest and a valid <see cref="ClientConfiguration"/>.</param>
+        /// <param name="cacheKey">A valid cache key</param>
+        /// <param name="appOnly">Set to true for an app only context</param>
+        /// <param name="fallbackToUser">Be the user if app only is not allowed</param>
+        /// <returns>A ClientContext object</returns>
         public static ClientContext GetClientContext(string clientId, string cacheKey, bool appOnly = false, bool fallbackToUser = true)
         {
             try
@@ -48,6 +59,14 @@ namespace AzureFunctionsForSharePoint.Core
             }
         }
 
+        /// <summary>
+        /// Gets an access token for a given client id and cache key combination
+        /// </summary>
+        /// <param name="clientId">The id of the client. This must match the client id from a SharePoint add-in manifest and a valid <see cref="ClientConfiguration"/>.</param>
+        /// <param name="cacheKey">A valid cache key</param>
+        /// <param name="appOnly">Set to true for an app only token</param>
+        /// <param name="fallbackToUser">Be the user if app only is not allowed</param>
+        /// <returns>An access token string</returns>
         public static string GetAccessToken(string clientId, string cacheKey, bool appOnly = false, bool fallbackToUser = true)
         {
             try

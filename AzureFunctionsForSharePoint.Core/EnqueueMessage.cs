@@ -8,8 +8,15 @@ using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
 
 namespace AzureFunctionsForSharePoint.Core
 {
+    /// <summary>
+    /// Sends a message to a client's service bus queueu
+    /// </summary>
     public class EnqueueMessage
     {
+        /// <summary>
+        /// Send the event data as serialized json to the service bus queue
+        /// </summary>
+        /// <param name="eventData">The message to send</param>
         public static void SendQueueMessage(QueuedSharePointEvent eventData)
         {
             var clientConfig = GetConfiguration(eventData.ClientId);
