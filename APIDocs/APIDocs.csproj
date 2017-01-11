@@ -58,8 +58,10 @@
     <Content Include="custom_template\styles\main.js" />
     <Content Include="custom_template\styles\search-worker.js" />
     <Content Include="custom_template\toc.html.js" />
+    <Content Include="images\AppLaunchFlow.png" />
     <Content Include="images\AppLaunchFunction2.png" />
     <Content Include="images\AppLaunchManifest.png" />
+    <Content Include="images\AppSettings.png" />
     <Content Include="_site\api\AppLaunch.AppLauncherFunctionArgs.html" />
     <Content Include="_site\api\AppLaunch.AppLaunchHandler.html" />
     <Content Include="_site\api\AppLaunch.BootstrapProvisioner.html" />
@@ -281,6 +283,7 @@
     <None Include="api\ProcessOneWayEvent.yml" />
     <None Include="api\toc.yml" />
     <None Include="articles\AppLaunch.md" />
+    <None Include="articles\ClientConfiguration.md" />
     <None Include="articles\EventDispatch.md" />
     <None Include="articles\GetAccessToken.md" />
     <None Include="articles\intro.md" />

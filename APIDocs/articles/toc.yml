@@ -6,3 +6,5 @@
   href: EventDispatch.md
 - name: GetAccessToken Function Guide
   href: GetAccessToken.md    
+- name: Client Configuration Guide
+  href: ClientConfiguration.md    

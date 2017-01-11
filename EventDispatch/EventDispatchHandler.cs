@@ -22,9 +22,10 @@ namespace EventDispatch
     public class EventDispatchFunctionArgs : AzureFunctionArgs { }
 
     /// <summary>
-    /// This function receive a remote event from SharePoint as a WCF SOAP message and parses it using <see cref="SharePointRemoteEventAdapter"/>.
+    /// The EventDispatch function receives a remote event from SharePoint as a WCF SOAP message and  parses it using <see cref="SharePointRemoteEventAdapter"/>.
     /// Based on the event type, the received information may be augmented by reading additional information from SharePoint.
-    ///  and sends the resulting <see cref="QueuedSharePointProcessEvent"/> to the client's service bus queue.  
+    /// EventDispatch sends the resulting <see cref="QueuedSharePointProcessEvent"/> to the client's service bus queue.  
+    /// The EventDispatch function receives a remote event from SharePoint as a WCF SOAP message and 
     /// </summary>
     /// <remarks>
     /// This class inherits <see cref="FunctionBase"/> for its simple logging notification event. 
