@@ -328,6 +328,7 @@
     <None Include="filterConfig.yml" />
     <None Include="index.md" />
     <None Include="README.md" />
+    <None Include="SetupChecklist.xlsx" />
     <None Include="toc.yml" />
     <None Include="_site\fonts\fontawesome-webfont.eot" />
     <None Include="_site\fonts\fontawesome-webfont.ttf" />

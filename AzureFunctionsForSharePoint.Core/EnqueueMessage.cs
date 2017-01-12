@@ -9,7 +9,7 @@ using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
 namespace AzureFunctionsForSharePoint.Core
 {
     /// <summary>
-    /// Sends a message to a client's service bus queueu
+    /// Sends a message to a client's service bus queue
     /// </summary>
     public class EnqueueMessage
     {
