@@ -1,0 +1,8 @@
+﻿{
+  "ClientId": "",
+  "ProductId": "",
+  "ClientSecret": "",
+  "AllowAppOnly": true,
+  "ServiceBusConnectionString": "",
+  "NotificationQueueName": ""
+}

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Config.json.Sample.txt" />
     <Content Include="custom_template\common.js" />
     <Content Include="custom_template\conceptual.extension.js" />
     <Content Include="custom_template\conceptual.html.primary.js" />
