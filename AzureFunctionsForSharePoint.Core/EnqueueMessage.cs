@@ -41,6 +41,13 @@ namespace AzureFunctionsForSharePoint.Core
             var client = QueueClient.CreateFromConnectionString(connectionString, clientConfig.NotificationQueueName);
             BrokeredMessage message = new BrokeredMessage(ToJSON(eventData), new DataContractSerializer(typeof(string)));
             message.ContentType = eventData.GetType().ToString();
+
+            //It has been observed that it is possible for the message to get to the handler
+            //before SP is done processing synchronous events like ItemUpdating 
+            //causing handlers that fetch items to get old (un-updated) values for list items.
+            //
+            //Wait a little bit before the message gets delivered to the handler so SP can get its work done
+            message.ScheduledEnqueueTimeUtc = DateTime.Now.AddSeconds(15);
             client.Send(message);
         }
 
