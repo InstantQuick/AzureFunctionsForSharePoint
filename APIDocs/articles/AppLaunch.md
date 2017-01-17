@@ -1,5 +1,5 @@
 # Understanding the AppLaunch Function
-AppLaunch acts as the startup controller for a SharePoint add-in. It requires the addin to demand full control permissions and allow app only identity. A typical [SharePoint addin app manifest](SPAppManifest.md) resembles the following:
+AppLaunch acts as the startup controller for a SharePoint add-in. It requires the add-in to demand full control permissions and allow app only identity. A typical [SharePoint addin app manifest](SPAppManifest.md) resembles the following:
 
 ![Sample Manifest](../images/AppLaunchManifest.png)
 
