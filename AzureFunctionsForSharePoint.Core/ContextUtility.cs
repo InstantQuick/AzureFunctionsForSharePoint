@@ -40,7 +40,7 @@ namespace AzureFunctionsForSharePoint.Core
                 if (!ContextHasAccess(userClientContext)) return null;
                 
                 string accessToken = GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, tokens.Realm,
-                    tokens.ClientId, clientConfig.ClientSecret);
+                    tokens.ClientId, clientConfig.AcsClientConfig.ClientSecret);
 
                 var appOnlyContext = TokenHelper.GetClientContext(tokens.AppWebUrl, accessToken);
                 //If an app only context isn't available this is an older version
@@ -67,7 +67,7 @@ namespace AzureFunctionsForSharePoint.Core
         /// <param name="appOnly">Set to true for an app only token</param>
         /// <param name="fallbackToUser">Be the user if app only is not allowed</param>
         /// <returns>An access token string</returns>
-        public static string GetAccessToken(string clientId, string cacheKey, bool appOnly = false, bool fallbackToUser = true)
+        public static string GetACSAccessTokens(string clientId, string cacheKey, bool appOnly = false, bool fallbackToUser = true)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace AzureFunctionsForSharePoint.Core
                 
                 if (!appOnly) return GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig).AccessToken;
                 return GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, tokens.Realm,
-                                    tokens.ClientId, clientConfig.ClientSecret);
+                                    tokens.ClientId, clientConfig.AcsClientConfig.ClientSecret);
             }
             catch (Exception ex)
             {
@@ -89,8 +89,8 @@ namespace AzureFunctionsForSharePoint.Core
 
         private static OAuth2AccessTokenResponse GetUserAccessToken(string cacheKey, SecurityTokens tokens, Uri hostUri, ClientConfiguration clientConfig)
         {
-            var userAccessToken = TokenHelper.GetAccessToken(tokens.RefreshToken, targetPrincipal, hostUri.Authority,
-                tokens.Realm, tokens.ClientId, clientConfig.ClientSecret);
+            var userAccessToken = TokenHelper.GetACSAccessTokens(tokens.RefreshToken, targetPrincipal, hostUri.Authority,
+                tokens.Realm, tokens.ClientId, clientConfig.AcsClientConfig.ClientSecret);
 
             tokens.AccessToken = userAccessToken.AccessToken;
             tokens.AccessTokenExpires = userAccessToken.ExpiresOn;
@@ -105,7 +105,7 @@ namespace AzureFunctionsForSharePoint.Core
 
         public static string GetAppOnlyAccessToken(string clientId, string cacheKey)
         {
-            return GetAccessToken(clientId, cacheKey, true, false);
+            return GetACSAccessTokens(clientId, cacheKey, true, false);
         }
 
         private static bool ContextHasAccess(ClientContext ctx)

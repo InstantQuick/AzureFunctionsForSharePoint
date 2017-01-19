@@ -142,7 +142,7 @@ namespace AzureFunctionsForSharePoint.Core.Security
         /// <param name="clientId">ACS client id</param>
         /// <param name="clientSecret">ACS client secret</param>
         /// <returns>An access token with an audience matching the context token's source</returns>
-        public static OAuth2AccessTokenResponse GetAccessToken(SharePointContextToken contextToken, string targetHost, string clientId, string clientSecret)
+        public static OAuth2AccessTokenResponse GetACSAccessTokens(SharePointContextToken contextToken, string targetHost, string clientId, string clientSecret)
         {
 
             string targetPrincipalName = contextToken.TargetPrincipalName;
@@ -202,7 +202,7 @@ namespace AzureFunctionsForSharePoint.Core.Security
         /// <param name="clientId">ACS client id</param>
         /// <param name="clientSecret">Client secret</param>
         /// <returns>An access token with an audience of the target principal</returns>
-        public static OAuth2AccessTokenResponse GetAccessToken(
+        public static OAuth2AccessTokenResponse GetACSAccessTokens(
             string refreshToken,
             string targetPrincipalName,
             string targetHost,

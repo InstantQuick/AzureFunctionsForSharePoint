@@ -1,8 +1,13 @@
 ﻿{
-  "ClientId": "",
-  "ProductId": "",
-  "ClientSecret": "",
-  "AllowAppOnly": true,
+  "ClientId": "0a37651d-0e65-4159-8438-c2b0735a9a4d",
+  "AcsClientConfig": {
+    "ProductId": "00000000-0000-0000-0000-000000000000",
+    "ClientSecret": ""
+  },
+  "CredentialedClientConfig": {
+    "Password": "",
+    "Salt": ""
+  },
   "ServiceBusConnectionString": "",
   "NotificationQueueName": ""
 }

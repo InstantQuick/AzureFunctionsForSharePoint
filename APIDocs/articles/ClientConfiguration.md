@@ -7,6 +7,9 @@ In the meantime, here is one way to set it up by hand.
 ## Manual Creation and Configuration in Azure 
 Click the image below to watch the video.
 
+**Note the video is already out of date with respect to function names and config file format,
+but if you use the structure of the sample config file you should be fine.**
+
 [![Alt text](https://img.youtube.com/vi/MsPlqNNkqXM/0.jpg)](https://www.youtube.com/watch?v=MsPlqNNkqXM)
 
 ## Creating and Configuring a SharePoint Add-in

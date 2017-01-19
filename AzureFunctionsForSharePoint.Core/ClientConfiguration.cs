@@ -8,6 +8,44 @@ using Microsoft.WindowsAzure.Storage.Blob;
 namespace AzureFunctionsForSharePoint.Core
 {
     /// <summary>
+    /// This is the configuration for a client that is registered as an app and uses ACS for authorization
+    /// </summary>
+    /// <remarks>
+    /// These properties ware originally part of ClientConfiguration and this change breaks existing config files  
+    /// </remarks>
+    public class ACSClientConfig
+    {
+        /// <summary>
+        /// The id of the product. This must match the product id from a SharePoint add-in manifest.
+        /// </summary>
+        public string ProductId { get; set; } = default(Guid).ToString();
+
+        /// <summary>
+        /// The registered client secret of the client
+        /// </summary>
+        public string ClientSecret { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// This is the configuration for clients that use real credentials provided by users
+    /// at runtime. In these configurations the client and function app share the information
+    /// required to encrypt and decrypt the connection information.
+    /// </summary>
+    /// <seealso cref="System.Security.Cryptography.Rfc2898DeriveBytes"/>
+    public class CredentialedClientConfig
+    {
+        /// <summary>
+        /// The password used to derive the encryption key.
+        /// </summary>
+        public string Password { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The key salt used to derive the encryption key.
+        /// </summary>
+        public string Salt { get; set; } = string.Empty;
+    }
+
+    /// <summary>
     /// The configuration of a client and methods to read and store the configuration in Azure storage as JSON
     /// </summary>
     public class ClientConfiguration
@@ -15,25 +53,34 @@ namespace AzureFunctionsForSharePoint.Core
         private static readonly string ConfigBlobName = "config.json";
 
         /// <summary>
-        /// The id of the client. This must match the client id from a SharePoint add-in manifest.
+        /// The id of the client. If you are using ACS, this should match the client id from a SharePoint add-in manifest.
         /// </summary>
-        public string ClientId { get; set; }
+        public string ClientId { get; set; } = Guid.NewGuid().ToString();
+
         /// <summary>
-        /// The id of the product. This must match the product id from a SharePoint add-in manifest.
+        /// This is the configuration for a client that is registered as an app and uses ACS for authorization
         /// </summary>
-        public string ProductId { get; set; }
+        /// <remarks>
+        /// These properties ware originally part of ClientConfiguration and this change breaks existing config files  
+        /// </remarks>
+        public ACSClientConfig AcsClientConfig { get; set; } = new ACSClientConfig();
+
         /// <summary>
-        /// The registered client secret of the client
+        /// This is the configuration for clients that use real credentials provided by users
+        /// at runtime. In these configurations the client and function app share the information
+        /// required to encrypt and decrypt the connection information.
         /// </summary>
-        public string ClientSecret { get; set; }
+        /// <seealso cref="System.Security.Cryptography.Rfc2898DeriveBytes"/>
+        public CredentialedClientConfig CredentialedClientConfig { get; set; } = new CredentialedClientConfig();
+
         /// <summary>
         /// Connection string to the service bus queue the client will use to receive event notifications
         /// </summary>
-        public string ServiceBusConnectionString { get; set; }
+        public string ServiceBusConnectionString { get; set; } = string.Empty;
         /// <summary>
         /// Name of the queue to which notifications are set
         /// </summary>
-        public string NotificationQueueName { get; set; }
+        public string NotificationQueueName { get; set; } = string.Empty;
 
         //This is to avoid serialization
         private string _storageAccount;

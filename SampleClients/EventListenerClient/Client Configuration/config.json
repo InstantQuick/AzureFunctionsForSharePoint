@@ -1,0 +1,8 @@
+{
+  "ClientId": "f07f2c76-74c3-4b76-8c70-bda0f6a5bfc5",
+  "ProductId": "647ed371-ba93-4653-b536-6b6901f284c5",
+  "ClientSecret": "9KC+rL5GaUqK1P08a/93jFPm/sJA6Z0O8DQOslpfYJo=",
+  "AllowAppOnly": true,
+  "ServiceBusConnectionString": "Endpoint=sb://simplexvpo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=guJqLqjO5nL5yH2FhV+a0LJYPQhNCN/pgO+Zi16xhss=",
+  "NotificationQueueName": "mytasksyncevents"
+}

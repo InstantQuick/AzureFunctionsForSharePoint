@@ -9,6 +9,11 @@
       "fileName": "powershell.exe",
       "workingDirectory": ".",
       "arguments": "-ExecutionPolicy Bypass -NonInteractive -File APIDocs\\build_documentation.ps1"
+    },
+    "makeConfigJson": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File makeConfigJson.ps1"
     }
   }
 }

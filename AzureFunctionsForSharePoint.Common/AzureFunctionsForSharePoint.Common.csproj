@@ -120,6 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureFunctionArgs.cs" />
+    <Compile Include="CredentialedSharePointConnection.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="FunctionBase.cs" />
     <Compile Include="LoggingNotificationDelegate.cs" />
     <Compile Include="ProcessEventSOAPEnvelope.cs" />

@@ -21,7 +21,8 @@ There are three functions in this function app.
   
 1. [AppLaunch](articles/AppLaunch.html)
 2. [EventDispatch](articles/EventDispatch.html)
-3. [GetAccessToken](articles/GetAccessToken.html)
+3. [GetACSAccessTokens](articles/GetACSAccessTokens.html)
+4. [CreateCredentialToken](articles/CreateCredentialToken.html)
 
 ## Setup Guide
 We're working on full automation with an ARM template, etc. The Visual Studio Solution includes a PowerShell script you can use with Task Runner Explorer and [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner).
@@ -46,7 +47,7 @@ It is possible to use Azure Functions for SharePoint to deliver pure client-side
 However, many add-ins must support scenarios that are difficult or impossible to achieve through pure JavaScript.
 Azure Functions for SharePoint supports custom back-ends in two ways:
 1. Notification of add-in and SharePoint events via Azure Service Bus queues via the [EventDispatch Function](articles/EventDispatch.html)
-2. A REST service that provides security access tokens for registered clients via the [GetAccessToken Function](articles/GetAccessToken.html)
+2. A REST service that provides security access tokens for registered clients via the [GetACSAccessTokens Function](articles/GetACSAccessTokens.html)
 
 In both cases the client back-end receives all the information it needs to connect to SharePoint 
 as either the user or as an app-only identity with full control. 
@@ -61,3 +62,8 @@ That said, if you are using .NET, this project included an assembly named [Azure
 
 ## API Docs
 Complete documentation of the Azure Functions for SharePoint API see the [API Guide](api/index.md).
+
+## Recent Changes (Jan 19, 2017)
+* Added the CreateCredentialToken function
+* Renamed GetAccessToken to GetACSAccessTokens
+* Breaking changes in config file format to support credential clients

@@ -73,12 +73,12 @@ namespace AppLaunch
             {
                 _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
                 var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
-                    _clientClientConfiguration.ClientSecret);
+                    _clientClientConfiguration.AcsClientConfig.ClientSecret);
                 var spHostUri = new Uri(SPWebUrl);
 
-                var accessToken = TokenHelper.GetAccessToken(spContextToken, spHostUri.Authority,
+                var accessToken = TokenHelper.GetACSAccessTokens(spContextToken, spHostUri.Authority,
                     _clientClientConfiguration.ClientId,
-                    _clientClientConfiguration.ClientSecret);
+                    _clientClientConfiguration.AcsClientConfig.ClientSecret);
 
 
                 var ctx = ConnectToSPWeb(accessToken);
@@ -106,7 +106,7 @@ namespace AppLaunch
                     ClientId = ClientId,
                     AppWebUrl = ctx.Web.Url,
                     UserAccessToken = securityTokens.AccessToken,
-                    AppAccessToken = GetAccessToken(ClientId, encodedCacheKey, true),
+                    AppAccessToken = GetACSAccessTokens(ClientId, encodedCacheKey, true),
                     RetryCount = 5
                 });
 
@@ -233,7 +233,7 @@ namespace AppLaunch
                     ClientId = ClientId,
                     AppWebUrl = SPWebUrl,
                     AppAccessToken = GetAppOnlyAccessToken(ClientId, cacheKey),
-                    UserAccessToken = GetAccessToken(ClientId, cacheKey),
+                    UserAccessToken = GetACSAccessTokens(ClientId, cacheKey),
                     RetryCount = 5,
                     Action = ProvisioningAction.Install,
                     ProvisioningStep = ProvisioningSteps.NotStarted
@@ -287,7 +287,7 @@ namespace AppLaunch
                 return clientContext.Web.AppInstanceId.ToString();
             }
 
-            var productId = _clientClientConfiguration.ProductId;
+            var productId = _clientClientConfiguration.AcsClientConfig.ProductId;
             if (string.IsNullOrEmpty(productId))
             {
                 return null;

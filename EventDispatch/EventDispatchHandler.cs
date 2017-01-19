@@ -85,13 +85,13 @@ namespace EventDispatch
                 //Connect to the SharePoint site and get access tokens
                 _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
                 var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
-                    _clientClientConfiguration.ClientSecret);
+                    _clientClientConfiguration.AcsClientConfig.ClientSecret);
                 var encodedCacheKey = TokenHelper.Base64UrlEncode(spContextToken.CacheKey);
                 var spHostUri = new Uri(SPWebUrl);
 
-                var accessToken = TokenHelper.GetAccessToken(spContextToken, spHostUri.Authority,
+                var accessToken = TokenHelper.GetACSAccessTokens(spContextToken, spHostUri.Authority,
                    _clientClientConfiguration.ClientId,
-                   _clientClientConfiguration.ClientSecret);
+                   _clientClientConfiguration.AcsClientConfig.ClientSecret);
 
                 var ctx = ConnectToSPWeb(accessToken);
 
@@ -115,7 +115,7 @@ namespace EventDispatch
                     ClientId = _clientClientConfiguration.ClientId,
                     AppWebUrl = SPWebUrl,
                     UserAccessToken = accessToken.AccessToken,
-                    AppAccessToken = GetAccessToken(ClientId, encodedCacheKey, true),
+                    AppAccessToken = GetACSAccessTokens(ClientId, encodedCacheKey, true),
                 };
 
                 //SharePoint's remote event notification lacks the current item state for ItemDeleting and ItemUpdating events

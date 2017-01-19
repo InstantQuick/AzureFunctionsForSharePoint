@@ -1,0 +1,308 @@
+{
+  "DefaultResourceAssembly": null,
+  "AdditionalResourceAssemblies": null,
+  "ProvisioningAssemblyName": null,
+  "ProvisioningClass": null,
+  "Settings": null,
+  "ManifestId": "f07f2c76-74c3-4b76-8c70-bda0f6a5bfc5",
+  "ManifestName": "My Tasks",
+  "Version": "0.0.0.1",
+  "RemoteHost": "iqfn0.azurewebsites.net",
+  "StorageType": 2,
+  "BaseFilePath": null,
+  "GroupCreators": null,
+  "RoleDefinitions": null,
+  "Fields": {
+    "SyncToItemId": "<Field Type=\"Integer\" DisplayName=\"SyncToItemId\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" Group=\"_Hidden\" Hidden=\"TRUE\" ID=\"{d3f6cf29-af2e-4aea-bea0-d47c566e91a1}\" StaticName=\"SyncToItemId\" Name=\"SyncToItemId\"></Field>",
+    "SyncToWebUrl": "<Field Type=\"Text\" DisplayName=\"SyncToWebUrl\"  Description=\"A plain text Url to the web that contains the list that contains the synced item used for filtering views.\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\" Group=\"_Hidden\" ID=\"{972634ED-9990-4BA3-BECA-49D5A38C2FB5}\" StaticName=\"SyncToWebUrl\" Name=\"SyncToWebUrl\"></Field>",
+    "SyncToItemLink": "<Field Type=\"URL\" DisplayName=\"SyncToItemLink\" Description=\"A link to the synced item.\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" Format=\"Hyperlink\" Group=\"_Hidden\" ID=\"{bfb1d809-2a00-498f-8a8f-989147e2297f}\" StaticName=\"SyncToItemLink\" Name=\"SyncToItemLink\"></Field>",
+    "SyncToListId": "<Field Type=\"Guid\" DisplayName=\"SyncToListId\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" Group=\"_Hidden\" Hidden=\"TRUE\" ID=\"{1ca570a5-5d27-40de-928b-0bce34674b49}\" StaticName=\"SyncToListId\" Name=\"SyncToListId\"></Field>",
+    "SyncToWebLink": "<Field Type=\"URL\" DisplayName=\"SyncToWebLink\" Description=\"A link to the web that contains the list that contains the synced item.\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" Format=\"Hyperlink\" Group=\"_Hidden\" ID=\"{2c03d6e7-23df-47f1-b38a-a4598d8544bf}\" StaticName=\"SyncToWebLink\" Name=\"SyncToWebLink\"></Field>",
+    "OriginalTaskType": "<Field Type=\"Text\" DisplayName=\"Task Type\" Description=\"The content type name of an item synced with the My Tasks list.\" Required=\"FALSE\" EnforceUniqueValues=\"FALSE\" Indexed=\"FALSE\" MaxLength=\"255\" Group=\"My Tasks\" ID=\"{215e0dc5-ec74-414c-9d32-e1017d68c411}\" SourceID=\"{1cdec72b-6563-4ddd-8510-93b52c38bd65}\" StaticName=\"OriginalTaskType\" Name=\"OriginalTaskType\" Version=\"2\"></Field>"
+  },
+  "ContentTypeCreators": {
+    "My Task Item": {
+      "Fields": [ "SyncToItemId", "SyncToListId", "SyncToItemLink", "SyncToWebLink", "SyncToWebUrl", "OriginalTaskType" ],
+      "OrderedFields": [ "ContentType", "Title", "StartDate", "AssignedTo", "PercentComplete", "Body", "Predecessors", "Priority", "RelatedItems", "SyncToItemId", "SyncToListId", "SyncToItemLink", "SyncToWebLink", "SyncToWebUrl", "SyncToWebId", "OriginalTaskType" ],
+      "RemoveFields": [],
+      "Id": "0x0108000D67718F4E105848A224D5D0A538546F",
+      "ParentContentTypeName": "Task",
+      "Description": "Used in the My Tasks list, this extends the task sync to include additional properties at the top roll-up level. ",
+      "Group": "My Tasks",
+      "BaseViewUrl": null,
+      "NewFormUrl": null,
+      "NewFormIsDialog": false,
+      "NewFormDialogTitle": null,
+      "NewFormDialogHeight": null,
+      "NewFormDialogWidth": null,
+      "EditFormUrl": null,
+      "EditFormIsDialog": false,
+      "EditFormDialogTitle": null,
+      "EditFormDialogHeight": null,
+      "EditFormDialogWidth": null,
+      "DisplayFormUrl": null,
+      "DisplayFormIsDialog": false,
+      "DisplayFormDialogTitle": null,
+      "DisplayFormDialogHeight": null,
+      "DisplayFormDialogWidth": null,
+      "ContentType": null
+    }
+  },
+  "ListCreators": {
+    "My Tasks": {
+      "ListViewSchemas": {},
+      "SecurityConfiguration": {
+        "SecureObjectType": 1,
+        "SecurableObject": null,
+        "Title": "My Tasks",
+        "Url": "/Lists/My Tasks",
+        "BreakInheritance": true,
+        "ResetChildPermissions": false,
+        "CopyExisting": false,
+        "GroupRoleDefinitions": {
+          "c:0(.s|true": "Read",
+          "AssociatedOwnerGroup": "Full Control"
+        }
+      },
+      "DocumentTemplateUrl": "",
+      "DefaultViewTitle": "My Tasks",
+      "DefaultViewSchemaXml": "<Query><OrderBy><FieldRef Name=\"TaskDueDate\" /></OrderBy><Where><And><Eq><FieldRef Name=\"AssignedTo\" /><Value Type=\"Integer\"><UserID Type=\"Integer\" /></Value></Eq><Neq><FieldRef Name=\"TaskStatus\" /><Value Type=\"Text\">Completed</Value></Neq></And></Where></Query><ViewFields><FieldRef Name=\"SyncToItemLink\" /><FieldRef Name=\"OriginalTaskType\" /><FieldRef Name=\"TaskDueDate\" /><FieldRef Name=\"SyncToWebLink\" /></ViewFields><RowLimit Paged=\"TRUE\">30</RowLimit><Aggregations Value=\"Off\" /><JSLink>clienttemplates.js</JSLink><XslLink Default=\"TRUE\">main.xsl</XslLink><Toolbar Type=\"Standard\" />",
+      "Title": "My Tasks",
+      "Id": "c965739c-bb5c-43d0-8e5e-64197bfd3373",
+      "TitleFieldDisplayName": null,
+      "RequiredFields": [ "Title" ],
+      "IndexFields": [],
+      "HiddenFormFields": [ "SyncToItemId", "SyncToListId", "SyncToWebUrl" ],
+      "DisplayFormOnlyFields": [ "RelatedItems", "SyncToItemLink", "SyncToWebLink" ],
+      "EnforceUniqueFields": [],
+      "RemoveViewFields": null,
+      "AddToAllViewsFields": [],
+      "FieldDisplayNameOverrides": {
+        "7662cd2c-f069-4dba-9e35-082cf976e170": "Description",
+        "bfb1d809-2a00-498f-8a8f-989147e2297f": "Sync Item",
+        "2c03d6e7-23df-47f1-b38a-a4598d8544bf": "Sync Web",
+        "972634ed-9990-4ba3-beca-49d5a38c2fb5": "Sync Web for View Filters"
+      },
+      "AdditionalContentTypes": [],
+      "AdditionalFields": {},
+      "NoCrawl": true,
+      "Hidden": true,
+      "QuickLaunchOption": 0,
+      "TemplateFeatureId": "00bfea71-de22-43b2-a848-c05709900100",
+      "TemplateType": 100,
+      "Url": "/Lists/My Tasks",
+      "Description": "This list aggregates tasks from the site collection. Changes made here will sync to the original item and vice-versa.",
+      "ReplaceDefaultType": true,
+      "ContentType": "My Task Item",
+      "ListItems": null,
+      "DeleteExistingListItems": false,
+      "ProvisionListItems": false,
+      "WorkflowAssociations": null,
+      "List": null,
+      "ListInfo": null,
+      "CorrespondingLookupFieldName": null,
+      "CorrespondingLookupFieldNames": null,
+      "CorrespondingLookupField": null,
+      "CustomActionCreators": {},
+      "PropertyBagItems": {},
+      "RemoteEventRegistrationCreators": []
+    },
+    "IQApps": {
+      "ListViewSchemas": {},
+      "SecurityConfiguration": {
+        "SecureObjectType": 1,
+        "SecurableObject": null,
+        "Title": "IQApps",
+        "Url": "/_catalogs/IQApps",
+        "BreakInheritance": true,
+        "ResetChildPermissions": false,
+        "CopyExisting": false,
+        "GroupRoleDefinitions": {
+          "c:0(.s|true": "Read",
+          "AssociatedOwnerGroup": "Full Control"
+        }
+      },
+      "DocumentTemplateUrl": null,
+      "DefaultViewTitle": "All Documents",
+      "DefaultViewSchemaXml": "<Query><OrderBy><FieldRef Name=\"FileLeafRef\" /></OrderBy></Query><ViewFields><FieldRef Name=\"DocIcon\" /><FieldRef Name=\"LinkFilename\" /><FieldRef Name=\"Modified\" /><FieldRef Name=\"Editor\" /></ViewFields><RowLimit Paged=\"TRUE\">30</RowLimit><JSLink>clienttemplates.js</JSLink><XslLink Default=\"TRUE\">main.xsl</XslLink><Toolbar Type=\"Standard\" />",
+      "Title": "IQApps",
+      "Id": "73f9c13b-69c0-427e-bca7-07659c16b0aa",
+      "TitleFieldDisplayName": null,
+      "RequiredFields": [ "FileLeafRef" ],
+      "IndexFields": [],
+      "HiddenFormFields": [],
+      "DisplayFormOnlyFields": [],
+      "EnforceUniqueFields": [],
+      "RemoveViewFields": null,
+      "AddToAllViewsFields": [],
+      "FieldDisplayNameOverrides": {},
+      "AdditionalContentTypes": [],
+      "AdditionalFields": {},
+      "NoCrawl": true,
+      "Hidden": true,
+      "QuickLaunchOption": 0,
+      "TemplateFeatureId": "00bfea71-e717-4e80-aa17-d0c71b360101",
+      "TemplateType": 101,
+      "Url": "/_catalogs/IQApps",
+      "Description": "",
+      "ReplaceDefaultType": false,
+      "ContentType": "Document",
+      "ListItems": null,
+      "DeleteExistingListItems": false,
+      "ProvisionListItems": false,
+      "WorkflowAssociations": null,
+      "List": null,
+      "ListInfo": null,
+      "CorrespondingLookupFieldName": null,
+      "CorrespondingLookupFieldNames": null,
+      "CorrespondingLookupField": null,
+      "CustomActionCreators": {},
+      "PropertyBagItems": {},
+      "RemoteEventRegistrationCreators": []
+    }
+  },
+  "Folders": [ "/_catalogs", "/_catalogs/IQApps", "/_catalogs/IQApps/WebParts", "/_catalogs/wp" ],
+  "FileCreators": {
+    "/_catalogs/IQApps/WebParts/MyTasks.html": {
+      "SecurityConfiguration": {
+        "SecureObjectType": 2,
+        "SecurableObject": null,
+        "Title": "MyTasks.html",
+        "Url": "/_catalogs/IQApps/WebParts/MyTasks.html",
+        "BreakInheritance": true,
+        "ResetChildPermissions": false,
+        "CopyExisting": true,
+        "GroupRoleDefinitions": { "AssociatedOwnerGroup": "Full Control" }
+      },
+      "AppPageIdentifier": null,
+      "Name": "MyTasks.html",
+      "ViewSchemas": null,
+      "ListViewWebParts": null,
+      "ListItemFieldValues": [
+        {
+          "FieldName": "ContentTypeId",
+          "Value": "0x010100D1D5FA636725B445BDA5AA8F9AEEE7B1",
+          "FieldType": "ContentTypeId"
+        },
+        {
+          "FieldName": "FileLeafRef",
+          "Value": "MyTasks.html",
+          "FieldType": "File"
+        },
+        {
+          "FieldName": "ContentType",
+          "Value": "Document",
+          "FieldType": "ContentType"
+        }
+      ],
+      "IsHomePage": false,
+      "Url": "/_catalogs/IQApps/WebParts/MyTasks.html",
+      "HostWebResourceKey": null,
+      "List": "IQApps",
+      "ContentType": "Document",
+      "ContentTypeId": "0x010100D1D5FA636725B445BDA5AA8F9AEEE7B1",
+      "IsBinary": false,
+      "DeleteOnCleanup": false,
+      "ForceOverwrite": true,
+      "Created": false,
+      "File": null,
+      "RelativeFilePath": "\\_catalogs\\IQApps\\WebParts\\MyTasks.html",
+      "WebParts": null,
+      "WebPartPageZoneMappings": null,
+      "WebPartPageWebPartListViews": null,
+      "WikiPageWebPartStorageKeyMappings": null,
+      "WikiPageWebPartListViews": null
+    },
+    "/_catalogs/wp/MyTasks.dwp": {
+      "SecurityConfiguration": null,
+      "AppPageIdentifier": null,
+      "Name": "MyTasks.dwp",
+      "ViewSchemas": null,
+      "ListViewWebParts": null,
+      "ListItemFieldValues": [
+        {
+          "FieldName": "ContentTypeId",
+          "Value": "0x000F7A656D73570644AE052960C1C9A15F",
+          "FieldType": "ContentTypeId"
+        },
+        {
+          "FieldName": "FileLeafRef",
+          "Value": "MyTasks.dwp",
+          "FieldType": "File"
+        },
+        {
+          "FieldName": "Title",
+          "Value": "My Tasks",
+          "FieldType": "Text"
+        },
+        {
+          "FieldName": "WebPartDescription",
+          "Value": "Displays aggregated tasks for the current user from the site collection's My Tasks list.",
+          "FieldType": "Note"
+        },
+        {
+          "FieldName": "Group",
+          "Value": "IQ Apps",
+          "FieldType": "Choice"
+        }
+      ],
+      "IsHomePage": false,
+      "Url": "/_catalogs/wp/MyTasks.dwp",
+      "HostWebResourceKey": null,
+      "List": "Web Part Gallery",
+      "ContentType": null,
+      "ContentTypeId": null,
+      "IsBinary": false,
+      "DeleteOnCleanup": false,
+      "ForceOverwrite": true,
+      "Created": false,
+      "File": null,
+      "RelativeFilePath": "\\_catalogs\\wp\\MyTasks.dwp",
+      "WebParts": null,
+      "WebPartPageZoneMappings": null,
+      "WebPartPageWebPartListViews": null,
+      "WikiPageWebPartStorageKeyMappings": null,
+      "WikiPageWebPartListViews": null
+    }
+  },
+  "ClassicWorkflowCreators": null,
+  "CustomActionCreators": null,
+  "AddFeatures": null,
+  "RemoveFeatures": {
+    "MDSFeature": {
+      "FeatureId": "87294c72-f260-42f3-a41b-981a2ffce37a",
+      "DisplayName": "MDSFeature",
+      "FeatureDefinitionScope": 3,
+      "Force": false
+    }
+  },
+  "Navigation": null,
+  "LookAndFeel": null,
+  "RemoteEventRegistrationCreators": [
+    {
+      "RemoteEventScope": 2,
+      "ListTitle": null,
+      "Eventname": "SyncAllListsItemAdded",
+      "EventReceiverType": 10001,
+      "EndpointUrl": "/api/EventDispatch"
+    },
+    {
+      "RemoteEventScope": 2,
+      "ListTitle": null,
+      "Eventname": "AllListsItemUpdated",
+      "EventReceiverType": 10002,
+      "EndpointUrl": "/api/EventDispatch"
+    },
+    {
+      "RemoteEventScope": 2,
+      "ListTitle": null,
+      "Eventname": "AllListsItemDeleting",
+      "EventReceiverType": 3,
+      "EndpointUrl": "/api/EventDispatch"
+    }
+  ],
+  "Description": null,
+  "RuntimeResources": null,
+  "ClientPageRuntimeResources": null,
+  "ClientGlobalRuntimeResources": null
+}

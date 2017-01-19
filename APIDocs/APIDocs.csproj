@@ -160,7 +160,7 @@
     <Content Include="_site\api\toc.html" />
     <Content Include="_site\articles\AppLaunch.html" />
     <Content Include="_site\articles\EventDispatch.html" />
-    <Content Include="_site\articles\GetAccessToken.html" />
+    <Content Include="_site\articles\GetAccessTokens.html" />
     <Content Include="_site\articles\intro.html" />
     <Content Include="_site\articles\SPAppManifest.html" />
     <Content Include="_site\articles\toc.html" />
@@ -172,7 +172,6 @@
     <Content Include="_site\images\AppLaunchManifest.png" />
     <Content Include="_site\images\DocFx5050Logo.png" />
     <Content Include="_site\index.html" />
-    <Content Include="_site\logo.svg" />
     <Content Include="_site\styles\docfx.css" />
     <Content Include="_site\styles\docfx.js" />
     <Content Include="_site\styles\docfx.vendor.css" />
@@ -285,8 +284,9 @@
     <None Include="api\toc.yml" />
     <None Include="articles\AppLaunch.md" />
     <None Include="articles\ClientConfiguration.md" />
+    <None Include="articles\CreateCredentialToken.md" />
     <None Include="articles\EventDispatch.md" />
-    <None Include="articles\GetAccessToken.md" />
+    <None Include="articles\GetACSAccessTokens.md" />
     <None Include="articles\intro.md" />
     <None Include="articles\SPAppManifest.md" />
     <None Include="articles\toc.yml" />

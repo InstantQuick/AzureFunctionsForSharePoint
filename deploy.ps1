@@ -5,10 +5,10 @@
 $subscriptionId = "[YOUR_SUBSCRIPTION_ID]"
 $storageCnn = "[YOUR_CONNECTION_STRING]"
 $resourceGroupName = "[YOUR_RESOURCEGROUP_NAME]"
+$functionAppName = "[YOUR_FUNCTION_APP_NAME]"
 
 $storage = New-AzureStorageContext -ConnectionString $storageCnn
 
-$functionAppName = "iqapp"
 $storageShare = Get-AzureStorageShare -Context $storage -Name $functionAppName
 
 $baseFileUrl = "site/wwwroot"
@@ -22,8 +22,12 @@ $functionNames | % {
     $functionName = $_
     
 	#Only do files modified in the last n minutes. YMMV on the best time
-	$functionFiles = ls $functionName/Function/*.* | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
-    New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName" -Context $storage -ErrorAction SilentlyContinue
+	#$functionFiles = ls $functionName/Function/*.* | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+    
+	#Do all files
+	$functionFiles = ls $functionName/Function/*.*
+
+	New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName" -Context $storage -ErrorAction SilentlyContinue
     New-AzureStorageDirectory -ShareName $functionAppName -Path "$baseFileUrl/$functionName/bin" -Context $storage -ErrorAction SilentlyContinue
     $functionFiles | % { 
         $destination = $baseFileUrl + "/" + $functionName + "/" + $_.Name
@@ -33,8 +37,12 @@ $functionNames | % {
     $binFolder = "$currentFolder/$functionName/bin/debug"
 	
 	#Only do files modified in the last n minutes. YMMV on the best time
-    $binFiles = ls $binFolder -Recurse -File | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
-    $lastFolder = ""
+    #$binFiles = ls $binFolder -Recurse -File | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+    
+	#Do all files
+	$binFiles = ls $binFolder -Recurse -File
+	
+	$lastFolder = ""
     $binFiles | % {
         $destination = $baseFileUrl + "/" + $functionName + "/bin/" + $_.FullName.Substring($binFolder.Length+1).Replace("\","/")
         $destinationFolder = $destination.Replace("/" + $_.Name, "")

@@ -3,7 +3,7 @@
 ## Functions
 * [AppLaunch](AppLaunch.html)
 * [EventDispatch](EventDispatch.html)
-* [GetAccessToken](GetAccessToken.html)
+* [GetACSAccessTokens](GetACSAccessTokens.html)
 
 ## Supporting Namespaces
 * [AzureFunctionsForSharePoint.Common](AzureFunctionsForSharePoint.Common.html)

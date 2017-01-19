@@ -10,7 +10,7 @@ Features include:
   * SharePoint Remote Events
 
 ## Navigating the Documentation
-These documents consist of [articles](articles/intro.html) that explain what the functions do, how to set up the hosting environment, and how to use the functions in your add-ins and [API documentation for .NET developers](api/index.html) linked to the source code in [GitHub](https://github.com/InstantQuick/AzureFunctionsForSharePoint).
+These documents consist of [articles](intro.html) that explain what the functions do, how to set up the hosting environment, and how to use the functions in your add-ins and [API documentation for .NET developers](api/index.html) linked to the source code in [GitHub](https://github.com/InstantQuick/AzureFunctionsForSharePoint).
 
 ## A Note on Terminology
 These documents use the term **client** to refer to a given SharePoint add-in. A client is identified using its **client ID** which is the GUID that identifies the add-in's ACS client ID in the [SharePoint add-in's AppManifest.xml](https://msdn.microsoft.com/en-us/library/office/fp179918.aspx#AppManifest).
@@ -18,9 +18,10 @@ These documents use the term **client** to refer to a given SharePoint add-in. A
 ## Functions
 There are three functions in this function app.
   
-1. [AppLaunch](articles/AppLaunch.html)
-2. [EventDispatch](articles/EventDispatch.html)
-3. [GetAccessToken](articles/GetAccessToken.html)
+1. [AppLaunch](AppLaunch.html)
+2. [EventDispatch](EventDispatch.html)
+3. [GetACSAccessTokens](GetACSAccessTokens.html)
+4. [CreateCredentialToken](CreateCredentialToken.html)
 
 ## Setup Guide
 We're working on full automation with an ARM template, etc. The Visual Studio Solution includes a PowerShell script you can use with Task Runner Explorer and [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner).
@@ -45,7 +46,7 @@ It is possible to use Azure Functions for SharePoint to deliver pure client-side
 However, many add-ins must support scenarios that are difficult or impossible to achieve through pure JavaScript.
 Azure Functions for SharePoint supports custom back-ends in two ways:
 1. Notification of add-in and SharePoint events via Azure Service Bus queues via the [EventDispatch Function](EventDispatch.html)
-2. A REST service that provides security access tokens for registered clients via the [GetAccessToken Function](GetAccessToken.html)
+2. A REST service that provides security access tokens for registered clients via the [GetACSAccessTokens Function](GetACSAccessTokens.html)
 
 In both cases the client back-end receives all the information it needs to connect to SharePoint 
 as either the user or as an app-only identity with full control. 

@@ -4,7 +4,9 @@
   href: AppLaunch.md
 - name: EventDispatch Function Guide
   href: EventDispatch.md
-- name: GetAccessToken Function Guide
-  href: GetAccessToken.md    
+- name: GetACSAccessTokens Function Guide
+  href: GetACSAccessTokens.md    
+- name: CreateCredentialToken Function Guide
+  href: CreateCredentialToken.md
 - name: Client Configuration Guide
   href: ClientConfiguration.md    
