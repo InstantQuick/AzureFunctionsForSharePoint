@@ -62,7 +62,7 @@ namespace GetACSAccessTokens
                 var userAccessToken = GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig);
                 var appOnlyAccessToken = ContextUtility.GetAppOnlyAccessToken(clientId, cacheKey);
                 _response.StatusCode = HttpStatusCode.OK;
-                _response.Content = new StringContent($"{{'userAccessToken':'{userAccessToken.AccessToken}', 'appOnlyAccessToken':'{appOnlyAccessToken}'}}");
+                _response.Content = new StringContent($"{{\"userAccessToken\":\"{userAccessToken.AccessToken}\", \"appOnlyAccessToken\":\"{appOnlyAccessToken}\"}}");
                 _response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             }
             catch

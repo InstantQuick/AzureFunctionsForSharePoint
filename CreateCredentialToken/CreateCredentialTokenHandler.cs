@@ -38,12 +38,18 @@ namespace CreateCredentialToken
         {
             try
             {
-                if (request.Content.Headers.ContentType.Equals(new MediaTypeHeaderValue("application/json")))
-                {
-                    var body = request.Content.ReadAsStringAsync().Result;
-                    _credentialedSharePointConnectionInfo =
-                        (new JavaScriptSerializer()).Deserialize<CredentialedSharePointConnectionInfo>(body);
-                }
+                //Inexplicably this test fails when receiving from JavaScript (angular) instead
+                //I can clearly see if I debug that the header is application/json, 
+                //but the Equals test fails
+                //So, just try the operation, the end result is the same either way
+                //TODO: Figure this out!
+
+                //if (request.Content.Headers.ContentType.Equals(new MediaTypeHeaderValue("application/json")))
+                //{
+                var body = request.Content.ReadAsStringAsync().Result;
+                _credentialedSharePointConnectionInfo =
+                    (new JavaScriptSerializer()).Deserialize<CredentialedSharePointConnectionInfo>(body);
+                //}
             }
             catch
             {
@@ -74,7 +80,7 @@ namespace CreateCredentialToken
                 var token = _credentialedSharePointConnectionInfo.GetEncryptedToken(clientConfig.CredentialedClientConfig.Password, clientConfig.CredentialedClientConfig.Salt);
 
                 _response.StatusCode = HttpStatusCode.OK;
-                _response.Content = new StringContent($"{{'credentialToken':'{token}'}}");
+                _response.Content = new StringContent($"{{\"credentialToken\":\"{token}\"}}");
                 _response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 return _response;
             }
