@@ -35,12 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AzureFunctionsForSharePoint.Common, Version=1.0.6234.23548, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AzureFunctionsForSharePoint.Common.1.0.6234.23548\lib\net452\AzureFunctionsForSharePoint.Common.dll</HintPath>
+    <Reference Include="AzureFunctionsForSharePoint.Common, Version=1.0.6234.27977, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AzureFunctionsForSharePoint.Common.1.0.6234.27977\lib\net452\AzureFunctionsForSharePoint.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AzureFunctionsForSharePoint.Core, Version=1.0.6234.23297, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AzureFunctionsForSharePoint.Core.1.0.6234.23297\lib\net452\AzureFunctionsForSharePoint.Core.dll</HintPath>
+    <Reference Include="AzureFunctionsForSharePoint.Core, Version=1.0.6234.28044, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AzureFunctionsForSharePoint.Core.1.0.6234.28044\lib\net452\AzureFunctionsForSharePoint.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -51,7 +51,14 @@
       <HintPath>..\packages\InstantQuick.SharePoint.Provisioning.1.0.6192.24783\lib\net452\IQAppProvisioningBaseClasses.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.IdentityModel.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=69c3241e6f0468ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Model.Extensions.2.0.1459.0\lib\Microsoft.IdentityModel.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Client.Policy, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SharePointOnline.CSOM.16.1.6008.1200\lib\net45\Microsoft.Office.Client.Policy.dll</HintPath>
       <Private>True</Private>

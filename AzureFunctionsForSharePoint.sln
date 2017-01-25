@@ -7,11 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppLaunch", "AppLaunch\AppL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDispatch", "EventDispatch\EventDispatch.csproj", "{C596755D-34CD-4873-8597-681C08686D29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityModel", "IdentityModel", "{D85B9100-D8C1-4525-A323-350FE611E286}"
-	ProjectSection(SolutionItems) = preProject
-		IdentityModel\Microsoft.IdentityModel.dll = IdentityModel\Microsoft.IdentityModel.dll
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HttpFunctions", "HttpFunctions", "{AA5512FC-7821-4A9E-B865-BA020C519202}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBusFunctions", "ServiceBusFunctions", "{FB821C96-EAE1-4E45-A78D-C7ED429E5509}"
