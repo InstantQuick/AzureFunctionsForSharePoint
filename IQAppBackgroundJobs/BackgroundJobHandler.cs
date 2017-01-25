@@ -19,7 +19,8 @@ namespace IQAppBackgroundJobs
             var appOnlyContext = GetClientContext(baseEvent.AppWebUrl,
                 baseEvent.AppAccessToken);
 
-            appOnlyContext.Web.EnsureProperties(w => w.Url, w => w.ServerRelativeUrl, w => w.AllProperties);
+            appOnlyContext.Load(appOnlyContext.Web, w => w.Title);
+            appOnlyContext.ExecuteQuery();
             Log($"Connected to {appOnlyContext.Web.Url}");
 
             try

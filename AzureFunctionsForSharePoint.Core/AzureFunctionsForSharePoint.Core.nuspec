@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>AzureFunctionsForSharePoint.Common</id>
+    <id>AzureFunctionsForSharePoint.Core</id>
     <version>$version$</version>
-    <title>AzureFunctions for SharePoint Common</title>
+    <title>AzureFunctions for SharePoint Core</title>
     <authors>DougWare</authors>
     <owners>DougWare</owners>
     <licenseUrl>https://github.com/InstantQuick/AzureFunctionsForSharePoint/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/InstantQuick/AzureFunctionsForSharePoint</projectUrl>
     <iconUrl>https://avatars2.githubusercontent.com/u/20448352</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Supporting library for Azure Function apps which receive messages from Azure Functions for SharePoint installations</description>
-    <releaseNotes>Fixed package version number to increment correctly</releaseNotes>
+    <description>Supporting library for Azure Functions for SharePoint functions. In other words, the functions themselves. This includes the function base classes and classes for configuration and token management.</description>
+    <releaseNotes>Initial package.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>SharePoint Azure Functions sharepoint azure functions</tags>
   </metadata>

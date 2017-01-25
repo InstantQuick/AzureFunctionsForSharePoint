@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AzureFunctionsForSharePoint.Common, Version=1.0.6234.23548, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AzureFunctionsForSharePoint.Common.1.0.6234.23548\lib\net452\AzureFunctionsForSharePoint.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AzureFunctionsForSharePoint.Core, Version=1.0.6234.23297, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AzureFunctionsForSharePoint.Core.1.0.6234.23297\lib\net452\AzureFunctionsForSharePoint.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
@@ -62,6 +70,10 @@
     </Reference>
     <Reference Include="Microsoft.ProjectServer.Client, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SharePointOnline.CSOM.16.1.6008.1200\lib\net45\Microsoft.ProjectServer.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.ServiceBus.3.4.5\lib\net45-full\Microsoft.ServiceBus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client, Version=16.1.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -124,12 +136,15 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppLaunchHandler.cs" />
@@ -142,16 +157,6 @@
     <None Include="Function\function.json" />
     <None Include="Function\run.csx" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AzureFunctionsForSharePoint.Core\AzureFunctionsForSharePoint.Core.csproj">
-      <Project>{9d07a65b-adfb-44e4-89a1-aa0ff93979c4}</Project>
-      <Name>AzureFunctionsForSharePoint.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AzureFunctionsForSharePoint.Common\AzureFunctionsForSharePoint.Common.csproj">
-      <Project>{0734f136-8a6e-4cc6-8851-f4974828a07a}</Project>
-      <Name>AzureFunctionsForSharePoint.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Error.html" />
