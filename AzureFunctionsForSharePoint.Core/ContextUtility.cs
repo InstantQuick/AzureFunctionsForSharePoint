@@ -1,5 +1,5 @@
 ﻿using System;
-using AzureFunctionsForSharePoint.Core.Security;
+using AzureFunctionsForSharePoint.Common;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
 using Microsoft.SharePoint.Client;
 using static AzureFunctionsForSharePoint.Core.ClientConfiguration;

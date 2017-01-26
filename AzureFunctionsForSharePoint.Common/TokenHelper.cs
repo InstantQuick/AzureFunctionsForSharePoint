@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.S2S.Tokens;
 using Microsoft.SharePoint.Client;
 using System.Web.Script.Serialization;
 
-namespace AzureFunctionsForSharePoint.Core.Security
+namespace AzureFunctionsForSharePoint.Common
 {
     /// <summary>
     /// Methods for working with auth tokens and creating authorized client contexts

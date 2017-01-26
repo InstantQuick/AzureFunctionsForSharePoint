@@ -11,7 +11,7 @@
     <iconUrl>https://avatars2.githubusercontent.com/u/20448352</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Supporting library for Azure Functions for SharePoint functions. In other words, the functions themselves. This includes the function base classes and classes for configuration and token management.</description>
-    <releaseNotes>Initial package.</releaseNotes>
+    <releaseNotes>Updated to reflect change in AzureFunctionsForSharePoint.Common.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>SharePoint Azure Functions sharepoint azure functions</tags>
   </metadata>

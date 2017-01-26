@@ -3,8 +3,7 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using AzureFunctionsForSharePoint.Common;
 using Microsoft.ServiceBus.Messaging;
-using Microsoft.SharePoint.Client;
-using static AzureFunctionsForSharePoint.Core.Security.TokenHelper;
+using static AzureFunctionsForSharePoint.Common.TokenHelper;
 
 namespace IQAppBackgroundJobs
 {

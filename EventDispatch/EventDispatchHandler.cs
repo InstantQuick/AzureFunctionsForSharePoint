@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Script.Serialization;
 using AzureFunctionsForSharePoint.Core;
 using AzureFunctionsForSharePoint.Common;
-using AzureFunctionsForSharePoint.Core.Security;
 using Microsoft.IdentityModel.S2S.Protocols.OAuth2;
 using Microsoft.SharePoint.Client;
 using static AzureFunctionsForSharePoint.Core.ClientConfiguration;
