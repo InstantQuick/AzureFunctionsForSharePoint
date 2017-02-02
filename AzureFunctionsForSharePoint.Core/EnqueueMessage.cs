@@ -14,7 +14,7 @@ namespace AzureFunctionsForSharePoint.Core
     public class EnqueueMessage
     {
         /// <summary>
-        /// Send the event data as serialized json to the service bus queue
+        /// Send the event data as serialized json to the service bus queue specified in the client config
         /// </summary>
         /// <param name="eventData">The message to send</param>
         public static void SendQueueMessage(QueuedSharePointEvent eventData)
@@ -48,6 +48,44 @@ namespace AzureFunctionsForSharePoint.Core
             //
             //Wait a little bit before the message gets delivered to the handler so SP can get its work done
             message.ScheduledEnqueueTimeUtc = DateTime.Now.AddSeconds(15);
+            client.Send(message);
+        }
+
+        /// <summary>
+        /// General purpose method for sending arbitrary messages to a service bus queue
+        /// </summary>
+        /// <param name="eventData">The message to send</param>
+        /// <param name="serviceBusConnectionString">The message to send</param>
+        /// <param name="notificationQueueName">The message to send</param>
+        /// <param name="delaySeconds">The message to send</param>
+        public static void SendQueueMessage(object eventData, string serviceBusConnectionString, string notificationQueueName, int delaySeconds = 0)
+        {
+            if (string.IsNullOrEmpty(serviceBusConnectionString) || string.IsNullOrEmpty(notificationQueueName))
+            {
+                throw new ArgumentException("Sending a message requires a connection and a queue name");
+            };
+
+            QueueDescription qd = new QueueDescription(notificationQueueName)
+            {
+                MaxSizeInMegabytes = 5120,
+                DefaultMessageTimeToLive = new TimeSpan(5, 0, 0, 0)
+            };
+
+            string connectionString = serviceBusConnectionString;
+
+            var namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
+
+            if (!namespaceManager.QueueExists(notificationQueueName))
+            {
+                namespaceManager.CreateQueue(qd);
+            }
+
+            var client = QueueClient.CreateFromConnectionString(connectionString, notificationQueueName);
+            BrokeredMessage message = new BrokeredMessage(ToJSON(eventData), new DataContractSerializer(typeof(string)));
+            message.ContentType = eventData.GetType().ToString();
+
+            //Delay the delivery as instructed
+            message.ScheduledEnqueueTimeUtc = DateTime.Now.AddSeconds(delaySeconds);
             client.Send(message);
         }
 
