@@ -11,7 +11,7 @@
     <iconUrl>https://avatars2.githubusercontent.com/u/20448352</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Supporting library for Azure Function apps which receive messages from Azure Functions for SharePoint installations</description>
-    <releaseNotes>Moved TokenHelper from namespace AzureFunctionsForSharePoint.Core.Security to namespace AzureFunctionsForSharePoint.Common</releaseNotes>
+    <releaseNotes>Corrected class definition for QueuedSharePointEvent. Removed abtract.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>SharePoint Azure Functions sharepoint azure functions</tags>
   </metadata>

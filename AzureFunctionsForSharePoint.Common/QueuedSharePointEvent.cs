@@ -5,7 +5,7 @@ namespace AzureFunctionsForSharePoint.Common
     /// <summary>
     /// Base properties for queued service bus messages
     /// </summary>
-    public abstract class QueuedSharePointEvent
+    public class QueuedSharePointEvent
     {
         /// <summary>
         /// The id of the client. This must match a previously created client configuration in Azure storage. 
