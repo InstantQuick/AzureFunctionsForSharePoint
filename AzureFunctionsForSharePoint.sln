@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", 
 	ProjectSection(SolutionItems) = preProject
 		AzureFunctionsForSharePointWWWRoot.zip = AzureFunctionsForSharePointWWWRoot.zip
 		commands.json = commands.json
+		deploy-arm.sh = deploy-arm.sh
 		deploy.ps1 = deploy.ps1
 		makeConfigJson.ps1 = makeConfigJson.ps1
 	EndProjectSection
@@ -36,6 +37,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateCredentialToken", "CreateCredentialToken\CreateCredentialToken.csproj", "{50DB65F9-1CB2-4B18-A802-425B690E7F5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetACSAccessTokens", "GetACSAccessTokens\GetACSAccessTokens.csproj", "{51E17963-631E-42FF-BF5E-A38AA3BBC712}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{A3066239-B00B-45F6-AE40-23748591B67D}"
+	ProjectSection(SolutionItems) = preProject
+		arm-parameters.json = arm-parameters.json
+		arm-template.json = arm-template.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,5 +162,6 @@ Global
 		{E6A576C8-2B4B-420E-AC07-323B3E0690E4} = {801868A8-61FC-41FB-93D3-E11DDB48D5C9}
 		{50DB65F9-1CB2-4B18-A802-425B690E7F5D} = {AA5512FC-7821-4A9E-B865-BA020C519202}
 		{51E17963-631E-42FF-BF5E-A38AA3BBC712} = {AA5512FC-7821-4A9E-B865-BA020C519202}
+		{A3066239-B00B-45F6-AE40-23748591B67D} = {CB83658E-517C-4EA8-BC35-B12D672B602C}
 	EndGlobalSection
 EndGlobal
