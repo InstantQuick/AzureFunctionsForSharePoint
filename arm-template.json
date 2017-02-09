@@ -33,6 +33,12 @@
         "description": "The instance size of the hosting plan (small, medium, or large)."
       }
     },
+    "storageAcctName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the storage account that the function app will use."
+      }
+    },
     "storageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
@@ -60,10 +66,11 @@
     }
   },
   "variables": {
-    "groupSuffix": "[substring(uniquestring(resourceGroup().id),0,4)]",
+    "groupSuffix": "[substring(uniquestring(resourceGroup().id),0,6)]",
     "functionAppName": "[concat(parameters('appName'), variables('groupSuffix'))]",
     "hostingPlanName": "[concat(parameters('appName'), variables('groupSuffix'))]",
-    "storageAccountName": "[toLower(concat('storage', variables('groupSuffix')))]",
+    "storageAccountName": "[concat(parameters('storageAcctName'), variables('groupSuffix'))]",
+    "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
     "serviceBusName": "[concat(parameters('serviceBusNamespaceName'), variables('groupSuffix'))]",
     "sbVersion": "2015-08-01"
   },
@@ -103,10 +110,8 @@
       "location": "[resourceGroup().location]",
       "properties": {
         "name": "[variables('hostingPlanName')]",
-        "sku": "[parameters('sku')]",
-        "workerSize": "[parameters('workerSize')]",
-        "hostingEnvironment": "",
-        "numberOfWorkers": 1
+        "computeMode": "Dynamic",
+        "sku": "Dynamic"
       }
     },
     {
@@ -115,63 +120,51 @@
       "name": "[variables('functionAppName')]",
       "location": "[resourceGroup().location]",
       "kind": "functionapp",
-      "properties": {
-        "name": "[variables('functionAppName')]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
-        "hostingEnvironment": "",
-        "clientAffinityEnabled": false,
-        "alwaysOn": false
-      },
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ],
-      "resources": [
-        {
-          "apiVersion": "2016-03-01",
-          "name": "appsettings",
-          "type": "config",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]",
-            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-          ],
-          "properties": {
-            "AzureWebJobsStorage": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
-            "AzureWebJobsDashboard": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
-            "SPFUNCTIONS_STORAGE": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1,';')]",
-            "FUNCTIONS_EXTENSION_VERSION": "~1",
-            "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0"
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "name": "SimpleHTTPFunc",
-          "type": "functions",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
-          ],
-          "properties": {
-            "config": {
-              "bindings": [
-                {
-                  "authLevel": "function",
-                  "name": "req",
-                  "type": "httpTrigger",
-                  "direction": "in"
-                },
-                {
-                  "name": "res",
-                  "type": "http",
-                  "direction": "out"
-                }
-              ]
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
             },
-            "files": {
-              "run.csx": "using System.Net;\r\n\r\n public static HttpResponseMessage Run(HttpRequestMessage req, TraceWriter log)\r\n\r\n {\r\n\r\n     return req.CreateResponse(HttpStatusCode.OK, \"Hello from MyFunction\");\r\n\r\n }"
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[toLower(variables('functionAppName'))]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "ConfigurationStorageAccount",
+              "value": "[variables('storageAccountName')]"
+            },
+            {
+              "name": "ConfigurationStorageAccountKey",
+              "value": "[listKeys(variables('storageAccountid'),'2015-05-01-preview').key2]"
             }
-          }
+
+          ]
         }
-      ]
+      }
+
     }
   ]
 }

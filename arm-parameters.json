@@ -3,13 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
-      "value": "spfuncs-"
+      "value": "spfuncs-app-"
+    },
+    "storageAcctName": {
+      "value": "spfuncsstorage"
     },
     "serviceBusNamespaceName": {
-      "value": "spfuncs-sb-"
+      "value": "spfuncs-scvbus-"
     },
     "serviceBusQueueName": {
-      "value": "spfuncevents-"
+      "value": "spfuncs-events-"
     }
   }
 }
