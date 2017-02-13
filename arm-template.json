@@ -5,7 +5,7 @@
     "appName": {
       "type": "string",
       "metadata": {
-        "description": "The name of the function app that you wish to create."
+        "description": "The name of the function app to create."
       }
     },
     "sku": {
@@ -66,7 +66,7 @@
     }
   },
   "variables": {
-    "groupSuffix": "[substring(uniquestring(resourceGroup().id),0,6)]",
+    "groupSuffix": "[substring(uniquestring(resourceGroup().id),0,5)]",
     "functionAppName": "[concat(parameters('appName'), variables('groupSuffix'))]",
     "hostingPlanName": "[concat(parameters('appName'), variables('groupSuffix'))]",
     "storageAccountName": "[concat(parameters('storageAcctName'), variables('groupSuffix'))]",
@@ -166,5 +166,19 @@
       }
 
     }
-  ]
+  ],
+  "outputs": {
+   "FunctionAppName" : {
+     "type" : "string",
+     "value": "[variables('functionAppName')]"
+   },
+   "ConfigurationStorageAccount" : {
+     "type" : "string",
+     "value": "[variables('storageAccountName')]"
+   },
+   "ConfigurationStorageAccountKey":{
+     "type" : "string",
+     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key2)]"
+   }
+  }
 }

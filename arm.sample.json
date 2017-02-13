@@ -1,0 +1,7 @@
+{
+    "azureaccount": "your_account@yourdomain.onmicrosoft.com",
+    "subscriptionid":"your_subscription_id",
+    "resourcegroupname": "AFSPGroup",
+    "resourcegrouplocation":"East US",
+    "deploymentname":"AzureSPFuncDeploy"
+}
