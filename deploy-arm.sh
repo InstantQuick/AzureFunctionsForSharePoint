@@ -23,7 +23,7 @@ done
 shift $((OPTIND-1))
 
 
-subscriptionId="638fb578-66c4-4fc8-b097-dadbc108fbd6"
+subscriptionId="your subscription id here"
 resourceGroupName="AzureSPFuncRG"
 deploymentName="AzureSPFuncDeploy"
 resourceGroupLocation="EastUS"
