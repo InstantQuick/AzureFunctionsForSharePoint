@@ -30,7 +30,8 @@ if ($devConfig.azureaccount)
     $profile = Login-AzureRmAccount 
 }
 
-Get-AzureSubscription -Current
+Get-AzureSubscription
+Select-AzureRmSubscription -SubscriptionId $devConfig.subscriptionid
 $confirmation = Read-Host "Confirm using subscription above to create $($devConfig.resourcegroupname)? (y/n)"
 if ($confirmation -eq 'y') {
     #create the Resource Group which will contain all resources 
