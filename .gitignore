@@ -6,6 +6,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+arm.developer.json
+arm.outputs.json
+deploy.config.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

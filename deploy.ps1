@@ -2,10 +2,12 @@
 
 # Note - You might have to Alt-Tab to get to the login window if using interactive login
  
-$subscriptionId = "[YOUR_SUBSCRIPTION_ID]"
-$storageCnn = "[YOUR_CONNECTION_STRING]"
-$resourceGroupName = "[YOUR_RESOURCEGROUP_NAME]"
-$functionAppName = "[YOUR_FUNCTION_APP_NAME]"
+$deployConfig = (Get-Content "deploy.config.json" -Raw) | ConvertFrom-Json
+
+$subscriptionId = $deployConfig.subscriptionid
+$storageCnn = $deployConfig.storageconnection
+$resourceGroupName = $deployConfig.resourcegroupname
+$functionAppName = $deployConfig.functionappname
 
 $storage = New-AzureStorageContext -ConnectionString $storageCnn
 
