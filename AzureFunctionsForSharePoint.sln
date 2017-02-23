@@ -21,8 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{CB83658E-517C-4EA8-BC35-B12D672B602C}"
 	ProjectSection(SolutionItems) = preProject
+		arm.developer.json = arm.developer.json
 		AzureFunctionsForSharePointWWWRoot.zip = AzureFunctionsForSharePointWWWRoot.zip
 		commands.json = commands.json
+		deploy-arm.ps1 = deploy-arm.ps1
 		deploy-arm.sh = deploy-arm.sh
 		deploy.ps1 = deploy.ps1
 		makeConfigJson.ps1 = makeConfigJson.ps1
@@ -42,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{
 	ProjectSection(SolutionItems) = preProject
 		arm-parameters.json = arm-parameters.json
 		arm-template.json = arm-template.json
+		arm.sample.json = arm.sample.json
 	EndProjectSection
 EndProject
 Global
