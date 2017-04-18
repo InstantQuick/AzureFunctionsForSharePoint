@@ -290,6 +290,7 @@
     <None Include="articles\intro.md" />
     <None Include="articles\SPAppManifest.md" />
     <None Include="articles\toc.yml" />
+    <None Include="articles\ValidateCredentialToken.md" />
     <None Include="build_documentation.ps1" />
     <None Include="custom_template\conceptual.html.primary.tmpl" />
     <None Include="custom_template\fonts\fontawesome-webfont.eot" />
@@ -326,6 +327,7 @@
     <None Include="custom_template\toc.html.tmpl" />
     <None Include="custom_template\token.json" />
     <None Include="docfx.json" />
+    <None Include="docFx_binaries\docfx.zip" />
     <None Include="filterConfig.yml" />
     <None Include="index.md" />
     <None Include="README.md" />

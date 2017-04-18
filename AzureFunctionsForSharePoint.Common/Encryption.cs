@@ -21,9 +21,6 @@ namespace AzureFunctionsForSharePoint.Common
         /// <returns>Clear text</returns>
         public static string Decrypt(string cipherText, string password, string salt)
         {
-            //Pad the salt if it is too short
-            if (salt.Length < 8) salt = salt + new string('f', 8 - salt.Length);
-
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             byte[] saltBytes = Encoding.ASCII.GetBytes(salt);
             Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(password, saltBytes);

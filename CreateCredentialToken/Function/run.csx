@@ -11,13 +11,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     var func = new CreateCredentialTokenHandler(req);
     func.FunctionNotify += (sender, args) => Log(log, args.Message);
 
-    var CreateCredentialTokenerFunctionArgs = new CreateCredentialTokenerFunctionArgs()
+    var CreateCredentialTokenFunctionArgs = new CreateCredentialTokenFunctionArgs()
     {
         StorageAccount = ConfigurationManager.AppSettings["ConfigurationStorageAccount"],
         StorageAccountKey = ConfigurationManager.AppSettings["ConfigurationStorageAccountKey"]
     };
 
-    return func.Execute(CreateCredentialTokenerFunctionArgs);
+    return func.Execute(CreateCredentialTokenFunctionArgs);
 }
 
 public static void Log(TraceWriter log, string message)

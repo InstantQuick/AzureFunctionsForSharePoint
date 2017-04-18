@@ -8,5 +8,7 @@
   href: GetACSAccessTokens.md    
 - name: CreateCredentialToken Function Guide
   href: CreateCredentialToken.md
+- name: ValidateCredentialToken Function Guide
+  href: ValidateCredentialToken.md
 - name: Client Configuration Guide
   href: ClientConfiguration.md    
