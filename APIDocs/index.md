@@ -17,16 +17,17 @@ These documents consist of [articles](articles/intro.html) that explain what the
 These documents use the term **client** to refer to a given SharePoint add-in. A client is identified using its **client ID** which is the GUID that identifies the add-in's ACS client ID in the [SharePoint add-in's AppManifest.xml](https://msdn.microsoft.com/en-us/library/office/fp179918.aspx#AppManifest).
 
 ## Functions
-There are three functions in this function app.
+There are five functions in this function app.
   
 1. [AppLaunch](articles/AppLaunch.html)
 2. [EventDispatch](articles/EventDispatch.html)
 3. [GetACSAccessTokens](articles/GetACSAccessTokens.html)
 4. [CreateCredentialToken](articles/CreateCredentialToken.html)
+5. [ValidateCredentialToken](articles/ValidateCredentialToken.html)
 
 ## Setup Guide
-We're working on full automation with an ARM template, etc. The Visual Studio Solution includes a PowerShell script you can use with Task Runner Explorer and [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner).
-Until then, create a function app and copy the contents of this [zip file](https://github.com/InstantQuick/AzureFunctionsForSharePoint/raw/master/AzureFunctionsForSharePointWWWRoot.zip) into the function app's wwwroot folder.
+The Visual Studio Solution includes a PowerShell script you can use with Task Runner Explorer and [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner).
+To set up a new environment from scratch automatically, see [Deploy an Azure Function app using Azure ARM Templates](https://peteskelly.com/deploy-an-azure-function-app-using-azure-arm-templates/)
 
 ### Configuring the Function App
 AzureFunctionsForSharePoint requires an Azure storage account which stores the configuration of each client as well as the associated tokens. This requires the presence of two app settings and their corresponding values.
@@ -63,7 +64,6 @@ That said, if you are using .NET, this project included an assembly named [Azure
 ## API Docs
 Complete documentation of the Azure Functions for SharePoint API see the [API Guide](api/index.md).
 
-## Recent Changes (Jan 19, 2017)
-* Added the CreateCredentialToken function
-* Renamed GetAccessToken to GetACSAccessTokens
-* Breaking changes in config file format to support credential clients
+## Recent Changes (Apr 19, 2017)
+* Added the ValidateCredentialToken function
+* Updated docs with link to [Deploy an Azure Function app using Azure ARM Templates](https://peteskelly.com/deploy-an-azure-function-app-using-azure-arm-templates/)
