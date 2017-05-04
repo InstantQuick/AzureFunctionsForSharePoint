@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AzureFunctionsForSharePoint.Core</id>
-    <version>$version$</version>
+    <version>$version$-beta</version>
     <title>AzureFunctions for SharePoint Core</title>
     <authors>DougWare</authors>
     <owners>DougWare</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://avatars2.githubusercontent.com/u/20448352</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Supporting library for Azure Functions for SharePoint functions. In other words, the functions themselves. This includes the function base classes and classes for configuration and token management.</description>
-    <releaseNotes>Added overload to EnqueueMessage to allow arbitrary messages to a specified service bus queue.</releaseNotes>
+    <releaseNotes>Packages updated to match current AzureFunctionsForSharePoint.Host.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>SharePoint Azure Functions sharepoint azure functions</tags>
   </metadata>
