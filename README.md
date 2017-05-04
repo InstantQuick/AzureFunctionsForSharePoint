@@ -1,3 +1,5 @@
+**The docs are here: [Azure Functions for SharePoint](https://afspdocs.blob.core.windows.net/docs/index.html)**
+
 ## Recent Changes 
 **(May 4, 2017)**
 * Major changes to the project's organization. The csx files are gone and there is now one assembly for the function host.
