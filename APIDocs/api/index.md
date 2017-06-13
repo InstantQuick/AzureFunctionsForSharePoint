@@ -1,9 +1,11 @@
 # API Documentation
 
 ## Functions
-* [AppLaunch](AppLaunch.html)
-* [EventDispatch](EventDispatch.html)
-* [GetACSAccessTokens](GetACSAccessTokens.html)
+* [AppLaunch](AzureFunctionsForSharePoint.Functions.AppLaunchHandler.html)
+* [CreateCredentialToken](AzureFunctionsForSharePoint.Functions.CreateCredentialTokenHandler.html)
+* [EventDispatch](AzureFunctionsForSharePoint.Functions.EventDispatchHandler.html)
+* [GetACSAccessTokens](AzureFunctionsForSharePoint.Functions.GetACSAccessTokensHandler.html)
+* [ValidateCredentialToken](AzureFunctionsForSharePoint.Functions.ValidateCredentialTokenHandler.html)
 
 ## Supporting Namespaces
 * [AzureFunctionsForSharePoint.Common](AzureFunctionsForSharePoint.Common.html)
