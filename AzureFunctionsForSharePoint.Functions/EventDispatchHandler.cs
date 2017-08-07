@@ -38,7 +38,7 @@ namespace AzureFunctionsForSharePoint.Functions
         private readonly string _requestAuthority;
         private readonly HttpResponseMessage _response;
         private readonly SharePointRemoteEventAdapter _eventInfo;
-        private ClientConfiguration _clientClientConfiguration;
+        private ClientConfiguration _clientConfiguration;
 
         /// <summary>
         /// Initializes the handler for a given HttpRequestMessage received from the function trigger and parses the incoming WCF message
@@ -79,24 +79,48 @@ namespace AzureFunctionsForSharePoint.Functions
                 _response.StatusCode = HttpStatusCode.OK;
 
                 //Ignore the event if it is the result of an action taken by an app only identity
-                if (_eventInfo.EventProperties.ContainsKey("UserLoginName") && _eventInfo.EventProperties["UserLoginName"].Contains(AppOnlyPrincipalId)) return _response;
+                if (_eventInfo.EventProperties.ContainsKey("UserLoginName") && _eventInfo.EventProperties["UserLoginName"].Contains(AppOnlyPrincipalId))
+                {
+                    Log("Event source is an app not a user. Ignoring");
+                    return _response;
+                }
+
+                var clientId = GetClientId();
+
+                if (clientId==null)
+                {
+                    Log("Request has no client ID. Ignoring");
+                    return _response;
+                }
 
                 //Connect to the SharePoint site and get access tokens
-                _clientClientConfiguration = GetConfiguration(ClientId, args.StorageAccount, args.StorageAccountKey);
-                var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, ClientId,
-                    _clientClientConfiguration.AcsClientConfig.ClientSecret);
+                try
+                {
+                    _clientConfiguration = GetConfiguration(clientId, args.StorageAccount, args.StorageAccountKey);
+                }
+                catch
+                {
+                    Log("Failed to get client configuration");
+                    Log($"Client Id is {clientId}");
+                    Log(args.StorageAccount);
+                    Log(args.StorageAccountKey);
+                    throw;
+                }
+
+                var spContextToken = TokenHelper.ReadAndValidateContextToken(ContextToken, _requestAuthority, clientId,
+                    _clientConfiguration.AcsClientConfig.ClientSecret);
                 var encodedCacheKey = TokenHelper.Base64UrlEncode(spContextToken.CacheKey);
                 var spHostUri = new Uri(SPWebUrl);
 
                 var accessToken = TokenHelper.GetACSAccessTokens(spContextToken, spHostUri.Authority,
-                   _clientClientConfiguration.ClientId,
-                   _clientClientConfiguration.AcsClientConfig.ClientSecret);
+                   _clientConfiguration.ClientId,
+                   _clientConfiguration.AcsClientConfig.ClientSecret);
 
                 var ctx = ConnectToSPWeb(accessToken);
 
                 var securityTokens = new SecurityTokens()
                 {
-                    ClientId = ClientId,
+                    ClientId = clientId,
                     AccessToken = accessToken.AccessToken,
                     AccessTokenExpires = accessToken.ExpiresOn,
                     AppWebUrl = SPWebUrl,
@@ -104,17 +128,17 @@ namespace AzureFunctionsForSharePoint.Functions
                     RefreshToken = spContextToken.RefreshToken
                 };
 
-                Log($"Storing tokens for {ClientId}/{encodedCacheKey}");
+                Log($"Storing tokens for {clientId}/{encodedCacheKey}");
                 StoreSecurityTokens(securityTokens, encodedCacheKey, args.StorageAccount, args.StorageAccountKey);
 
                 //Create the event message to send to the client's service bus queue
                 var eventMessage = new QueuedSharePointProcessEvent()
                 {
                     SharePointRemoteEventAdapter = _eventInfo,
-                    ClientId = _clientClientConfiguration.ClientId,
+                    ClientId = _clientConfiguration.ClientId,
                     AppWebUrl = SPWebUrl,
                     UserAccessToken = accessToken.AccessToken,
-                    AppAccessToken = GetACSAccessTokens(ClientId, encodedCacheKey, true),
+                    AppAccessToken = GetACSAccessTokens(clientId, encodedCacheKey, true),
                 };
 
                 //SharePoint's remote event notification lacks the current item state for ItemDeleting and ItemUpdating events
@@ -177,36 +201,33 @@ namespace AzureFunctionsForSharePoint.Functions
             }
         }
 
-        private string ClientId
+        private string GetClientId()
         {
-            get
+            if (_queryParams != null && _queryParams.ContainsKey("clientId") &&
+                !string.IsNullOrEmpty(_queryParams?["clientId"])) return _queryParams["clientId"];
+            else
             {
-                if (_queryParams != null && _queryParams.ContainsKey("clientId") &&
-                    !string.IsNullOrEmpty(_queryParams?["clientId"])) return _queryParams["clientId"];
-                else
+                var contextTokenParts = ContextToken?.Split('.');
+                if (contextTokenParts != null && contextTokenParts.Length > 1)
                 {
-                    var contextTokenParts = ContextToken?.Split('.');
-                    if (contextTokenParts != null && contextTokenParts.Length > 1)
+                    var mainPart = contextTokenParts[1];
+                    try
                     {
-                        var mainPart = contextTokenParts[1];
-                        try
+                        var jwt = TokenHelper.Base64DecodeJwtToken(mainPart);
+                        var deserializer = new JavaScriptSerializer();
+                        var tokenProperties = deserializer.Deserialize<Dictionary<string, string>>(jwt);
+                        if (tokenProperties.ContainsKey("aud"))
                         {
-                            var jwt = TokenHelper.Base64DecodeJwtToken(mainPart);
-                            var deserializer = new JavaScriptSerializer();
-                            var tokenProperties = deserializer.Deserialize<Dictionary<string, string>>(jwt);
-                            if (tokenProperties.ContainsKey("aud"))
-                            {
-                                return tokenProperties["aud"].Split('/')[0];
-                            }
-                        }
-                        catch
-                        {
-                            // ignored
+                            return tokenProperties["aud"].Split('/')[0];
                         }
                     }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
-                return null;
             }
+            return null;
         }
 
         private ClientContext ConnectToSPWeb(OAuth2AccessTokenResponse accessToken)
