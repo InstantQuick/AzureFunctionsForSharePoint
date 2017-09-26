@@ -309,7 +309,7 @@ namespace AzureFunctionsForSharePoint.Functions
             try
             {
                 return
-                    GetFile("AppLaunch.Resources.Error.html", Assembly.GetExecutingAssembly())
+                    GetFile("AzureFunctionsForSharePoint.Functions.Resources.Error.html", Assembly.GetExecutingAssembly())
                         .Replace("{{Exception}}", errorText).Replace("{{AppId}}", ClientId);
             }
             catch
