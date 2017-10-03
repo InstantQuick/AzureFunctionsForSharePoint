@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AzureFunctionsForSharePoint.Common</id>
-    <version>$version$-beta</version>
+    <version>$version$</version>
     <title>AzureFunctions for SharePoint Common</title>
     <authors>DougWare</authors>
     <owners>DougWare</owners>

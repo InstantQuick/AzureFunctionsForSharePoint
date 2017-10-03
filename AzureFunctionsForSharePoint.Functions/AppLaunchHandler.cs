@@ -283,6 +283,7 @@ namespace AzureFunctionsForSharePoint.Functions
             //It is directly available if this is an app web
             if (!IsHostWeb)
             {
+                clientContext.Web.EnsureProperty(w => w.AppInstanceId);
                 return clientContext.Web.AppInstanceId.ToString();
             }
 
