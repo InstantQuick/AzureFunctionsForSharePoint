@@ -82,6 +82,8 @@ namespace AzureFunctionsForSharePoint.Functions
 
                 var ctx = ConnectToSPWeb(accessToken);
 
+                var hostUri = new Uri(_queryParams["SPHostUrl"] ?? string.Empty);
+                
                 var securityTokens = new SecurityTokens()
                 {
                     ClientId = ClientId,
@@ -89,7 +91,8 @@ namespace AzureFunctionsForSharePoint.Functions
                     AccessTokenExpires = accessToken.ExpiresOn,
                     AppWebUrl = SPWebUrl,
                     Realm = spContextToken.Realm,
-                    RefreshToken = spContextToken.RefreshToken
+                    RefreshToken = spContextToken.RefreshToken,
+                    SPHostName = hostUri.Host
                 };
 
                 var encodedCacheKey = TokenHelper.Base64UrlEncode(spContextToken.CacheKey);
@@ -110,8 +113,11 @@ namespace AzureFunctionsForSharePoint.Functions
                 });
 
                 _response.StatusCode = HttpStatusCode.Moved;
-                // TODO: add Doug worthy validation on SPHostUrl, whatever that means
-                _response.Headers.Location = new Uri($"{ctx.Web.Url}?cId={ClientId}&cKey={encodedCacheKey}&SPHostUrl={_queryParams["SPHostUrl"]}");
+
+                //Include the SPHostUrl for app web javascript that needs to access the host web
+                _response.Headers.Location = !IsHostWeb ? 
+                    new Uri($"{ctx.Web.Url}?cId={ClientId}&cKey={encodedCacheKey}&SPHostUrl={hostUri}") : 
+                    new Uri($"{ctx.Web.Url}?cId={ClientId}&cKey={encodedCacheKey}");
 
                 return _response;
             }

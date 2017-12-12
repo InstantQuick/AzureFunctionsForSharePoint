@@ -38,7 +38,7 @@ namespace AzureFunctionsForSharePoint.Core
                 userClientContext = TokenHelper.GetClientContext(tokens.AppWebUrl, userAccessToken.AccessToken);
                 //Never! If the user hasn't got access
                 if (!ContextHasAccess(userClientContext)) return null;
-                
+
                 string accessToken = GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, tokens.Realm,
                     tokens.ClientId, clientConfig.AcsClientConfig.ClientSecret);
 
@@ -74,8 +74,9 @@ namespace AzureFunctionsForSharePoint.Core
                 var clientConfig = GetConfiguration(clientId);
                 var tokens = GetSecurityTokens(cacheKey, clientId);
                 if (tokens == null) return null;
+
                 Uri hostUri = new Uri(tokens.AppWebUrl);
-                
+
                 if (!appOnly) return GetUserAccessToken(cacheKey, tokens, hostUri, clientConfig).AccessToken;
                 return GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, tokens.Realm,
                                     tokens.ClientId, clientConfig.AcsClientConfig.ClientSecret);
@@ -83,6 +84,29 @@ namespace AzureFunctionsForSharePoint.Core
             catch (Exception ex)
             {
                 var detailedException = new Exception($"Unable to get client context for cId={clientId} cacheKey={cacheKey}", ex);
+                throw (detailedException);
+            }
+        }
+
+        /// <summary>
+        /// Gets an app only access token for a given client id
+        /// </summary>
+        /// <param name="clientId">The id of the client. This must match the client id from a SharePoint add-in manifest and a valid <see cref="ClientConfiguration"/>.</param>
+        /// <param name="realm">Tenant realm</param>
+        /// <param name="spWebUrl">The Url to SharePoint</param>
+        /// <returns>An access token string</returns>
+        public static string GetAppOnlyACSAccessTokens(string clientId, string realm, string spWebUrl)
+        {
+            try
+            {
+                var hostUri = new Uri(spWebUrl);
+                var clientConfig = GetConfiguration(clientId);
+                return GetAppOnlyAccessToken(targetPrincipal, hostUri.Authority, realm,
+                    clientId, clientConfig.AcsClientConfig.ClientSecret);
+            }
+            catch (Exception ex)
+            {
+                var detailedException = new Exception($"Unable to get client context for cId={clientId} spWebUrl={spWebUrl}", ex);
                 throw (detailedException);
             }
         }

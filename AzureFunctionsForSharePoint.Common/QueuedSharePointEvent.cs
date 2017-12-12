@@ -16,6 +16,10 @@ namespace AzureFunctionsForSharePoint.Common
         /// </summary>
         public string AppWebUrl { get; set; }
         /// <summary>
+        /// The host name of the SharePoint tenancy, this is used to access host webs for hybrid solutions with App Webs
+        /// </summary>
+        public string SPHostName { get; set; }
+        /// <summary>
         /// Security access token for the app-only identity
         /// </summary>
         public string AppAccessToken { get; set; }

@@ -118,18 +118,37 @@ namespace AzureFunctionsForSharePoint.Functions
 
                 var ctx = ConnectToSPWeb(accessToken);
 
-                var securityTokens = new SecurityTokens()
+                //Attempt to read stored tokens and update if they exist
+                //This is to ensure that AppWeb tokens retain information about the host
+                //Note, that if MS ever allows client interfaces to work in app webs resulting in a context for an identity 
+                //that never went through app launch you could get events that have no host info in the context
+                //which will break you if you need to touch the host web downstream
+                SecurityTokens securityTokens;
+                try
                 {
-                    ClientId = clientId,
-                    AccessToken = accessToken.AccessToken,
-                    AccessTokenExpires = accessToken.ExpiresOn,
-                    AppWebUrl = SPWebUrl,
-                    Realm = spContextToken.Realm,
-                    RefreshToken = spContextToken.RefreshToken
-                };
-
+                    securityTokens = GetSecurityTokens(encodedCacheKey, clientId);
+                    securityTokens.AccessToken = accessToken.AccessToken;
+                    securityTokens.AccessTokenExpires = accessToken.ExpiresOn;
+                    securityTokens.RefreshToken = spContextToken.RefreshToken;
+                }
+                catch
+                {
+                    securityTokens = new SecurityTokens()
+                    {
+                        ClientId = clientId,
+                        AccessToken = accessToken.AccessToken,
+                        AccessTokenExpires = accessToken.ExpiresOn,
+                        AppWebUrl = SPWebUrl,
+                        Realm = spContextToken.Realm,
+                        RefreshToken = spContextToken.RefreshToken
+                    };
+                }
                 Log($"Storing tokens for {clientId}/{encodedCacheKey}");
                 StoreSecurityTokens(securityTokens, encodedCacheKey, args.StorageAccount, args.StorageAccountKey);
+
+                //In configurations where there is an appweb and events might come from the host web, previously stored 
+                //cacheKey tokens from applaunch will have the correct spappweburl, but it won't work to access the host web directly
+                var appOnlyToken = GetAppOnlyACSAccessTokens(clientId, spContextToken.Realm, SPWebUrl);
 
                 //Create the event message to send to the client's service bus queue
                 var eventMessage = new QueuedSharePointProcessEvent()
@@ -138,7 +157,8 @@ namespace AzureFunctionsForSharePoint.Functions
                     ClientId = _clientConfiguration.ClientId,
                     AppWebUrl = SPWebUrl,
                     UserAccessToken = accessToken.AccessToken,
-                    AppAccessToken = GetACSAccessTokens(clientId, encodedCacheKey, true),
+                    AppAccessToken = appOnlyToken,
+                    SPHostName = securityTokens.SPHostName
                 };
 
                 //SharePoint's remote event notification lacks the current item state for ItemDeleting and ItemUpdating events
