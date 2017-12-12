@@ -42,9 +42,8 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="IQAppProvisioningBaseClasses, Version=1.0.6473.24656, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\InstantQuick.SharePoint.Provisioning.1.0.6473.24656\lib\net452\IQAppProvisioningBaseClasses.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="IQAppProvisioningBaseClasses, Version=1.0.6555.22576, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\InstantQuick.SharePoint.Provisioning.1.0.6555.22576\lib\net452\IQAppProvisioningBaseClasses.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -135,8 +134,8 @@
       <HintPath>..\packages\Microsoft.SharePointOnline.CSOM.16.1.6420.1200\lib\net45\Microsoft.SharePoint.Client.WorkflowServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.8.4.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.5.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -179,9 +178,13 @@
     <Compile Include="SecurityTokens.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="AzureFunctionsForSharePoint.Core.nuspec" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AzureFunctionsForSharePoint.Common\AzureFunctionsForSharePoint.Common.csproj">

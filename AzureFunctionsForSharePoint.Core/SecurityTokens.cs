@@ -18,6 +18,10 @@ namespace AzureFunctionsForSharePoint.Core
         /// </summary>
         public string AppWebUrl { get; set; }
         /// <summary>
+        /// The host name of the SharePoint tenancy, this is used to access host webs for hybrid solutions with App Webs
+        /// </summary>
+        public string SPHostName { get; set; }
+        /// <summary>
         /// The host part of the app web URL
         /// </summary>
         public string Realm { get; set; }
