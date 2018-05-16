@@ -25,12 +25,12 @@ namespace AzureFunctionsForSharePoint.Functions
             OnNotify(eventArgs.Level, eventArgs.Detail);
         }
 
-        private bool WebHasAppinstanceId(Web web)
+        private bool WebHasAppinstanceId(ClientContext clientContext, Web web)
         {
             if (!web.IsPropertyAvailable("AppInstanceId"))
             {
-                web.Context.Load(web, w => w.AppInstanceId);
-                web.Context.ExecuteQueryRetry();
+                clientContext.Load(web, w => w.AppInstanceId);
+                clientContext.ExecuteQueryRetry();
             }
             return web.AppInstanceId != default(Guid);
         }
@@ -43,7 +43,7 @@ namespace AzureFunctionsForSharePoint.Functions
         /// <param name="manifest">The app manifest</param>
         public void Provision(ClientContext clientContext, Web web, AppManifestBase manifest)
         {
-            _isHostWeb = !WebHasAppinstanceId(web);
+            _isHostWeb = !WebHasAppinstanceId(clientContext, web);
             _ctx = clientContext;
             _web = web;
 
@@ -241,7 +241,7 @@ namespace AzureFunctionsForSharePoint.Functions
             return !(!_ctx.Site.IsPropertyAvailable("ServerRelativeUrl") ||
                      !_ctx.Site.IsPropertyAvailable("RootWeb") ||
                      !_ctx.Site.RootWeb.IsPropertyAvailable("ServerRelativeUrl") ||
-                     !_ctx.Web.IsPropertyAvailable("ServerRelativeUrl"));
+                !_ctx.Web.IsPropertyAvailable("ServerRelativeUrl"));
         }
         private void LoadContext()
         {
