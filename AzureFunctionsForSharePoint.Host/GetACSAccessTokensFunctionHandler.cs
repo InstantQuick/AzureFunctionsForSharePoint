@@ -21,7 +21,7 @@ namespace AzureFunctionsForSharePoint.Host
     public static class GetACSAccessTokensFunctionHandler
     {
         [FunctionName("GetACSAccessTokensFunctionHandler")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetACSAccessTokens")] HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetACSAccessTokens")] HttpRequestMessage req, TraceWriter log)
         {
             Log(log, $"C# HTTP trigger function processed a request! RequestUri={req.RequestUri}");
             var func = new GetACSAccessTokensHandler(req);
