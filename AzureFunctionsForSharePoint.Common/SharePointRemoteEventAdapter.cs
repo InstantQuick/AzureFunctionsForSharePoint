@@ -301,7 +301,7 @@ namespace AzureFunctionsForSharePoint.Common
             beforePropertiesXml = CleanXml(beforePropertiesXml);
 
             SetListItemBeforeAndAfterProperties(adapter.ItemAfterProperties, afterPropertiesXml);
-            SetListItemBeforeAndAfterProperties(adapter.ItemAfterProperties, beforePropertiesXml);
+            SetListItemBeforeAndAfterProperties(adapter.ItemBeforeProperties, beforePropertiesXml);
 
             return adapter;
         }

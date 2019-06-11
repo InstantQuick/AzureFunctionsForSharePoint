@@ -232,8 +232,8 @@ namespace AzureFunctionsForSharePoint.Functions
             var props = appOnlyContext.Web.AllProperties;
             if (!propKeys.ContainsKey($"appRedirectUrl.{ClientId}"))
             {
-                SetAppRedirectUrlProperty(appOnlyContext, props);
                 InstallBaseManifest(appOnlyContext);
+                SetAppRedirectUrlProperty(appOnlyContext, props);
                 SendQueueMessage(new QueuedSharePointProvisioningEvent()
                 {
                     ClientId = ClientId,
