@@ -16,12 +16,13 @@ These documents consist of [articles](intro.html) that explain what the function
 These documents use the term **client** to refer to a given SharePoint add-in. A client is identified using its **client ID** which is the GUID that identifies the add-in's ACS client ID in the [SharePoint add-in's AppManifest.xml](https://msdn.microsoft.com/en-us/library/office/fp179918.aspx#AppManifest).
 
 ## Functions
-There are three functions in this function app.
+There are five functions in this function app.
   
 1. [AppLaunch](AppLaunch.html)
 2. [EventDispatch](EventDispatch.html)
 3. [GetACSAccessTokens](GetACSAccessTokens.html)
 4. [CreateCredentialToken](CreateCredentialToken.html)
+5. [ValidateCredentialToken](ValidateCredentialToken.html)
 
 ## Setup Guide
 We're working on full automation with an ARM template, etc. The Visual Studio Solution includes a PowerShell script you can use with Task Runner Explorer and [Command Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CommandTaskRunner).
