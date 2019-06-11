@@ -1,6 +1,11 @@
 **The docs are here: [Azure Functions for SharePoint](https://afspdocs.blob.core.windows.net/docs/index.html)**
 
-## Recent Changes 
+## Recent Changes
+**(June 11, 2019)**
+* Bug fix to remote event adapter for ItemBeforeProperties always bing null. Thanks amarmechai!
+* Changed default authorization level for GetAccessTokens
+* Updated this page
+ 
 **(May 4, 2017)**
 * Major changes to the project's organization. The csx files are gone and there is now one assembly for the function host.
 * Startup time is substantially improved by moving to precompiled functions
